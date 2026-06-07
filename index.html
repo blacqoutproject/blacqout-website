@@ -47,13 +47,13 @@
     }
 
     .nav-brand svg {
-      filter: drop-shadow(0 0 5px #f59e0b60);
+      filter: drop-shadow(0 0 5px #a78bfa60);
       animation: glow 2.5s ease-in-out infinite;
     }
 
     @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 4px #f59e0b40); }
-      50% { filter: drop-shadow(0 0 10px #f59e0b80) drop-shadow(0 0 20px #f59e0b40); }
+      0%, 100% { filter: drop-shadow(0 0 4px #a78bfa40); }
+      50% { filter: drop-shadow(0 0 10px #a78bfa80) drop-shadow(0 0 20px #a78bfa40); }
     }
 
     .nav-brand-text {
@@ -61,7 +61,7 @@
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
+      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa, #ef4444);
       background-size: 200% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -89,7 +89,7 @@
     nav.main-nav ul { list-style: none; display: flex; gap: 2rem; }
 
     nav.main-nav ul a {
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
+      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa, #ef4444);
       background-size: 200% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -551,6 +551,79 @@
     .form-group select option { background: #111; }
     .form-group textarea { resize: vertical; min-height: 100px; }
 
+    /* TIKTOK STRIP */
+    .tiktok-strip {
+      width: 100%;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: #0c0c0c;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tiktok-strip-inner {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tiktok-icon-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .tiktok-logo {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+    }
+
+    .tiktok-handle {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .tiktok-divider {
+      width: 1px; height: 18px;
+      background: var(--border);
+    }
+
+    .tiktok-tagline {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .tiktok-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--text);
+      padding: 0.35rem 0.9rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .tiktok-cta:hover { opacity: 0.85; }
+
+    @media (max-width: 640px) {
+      .tiktok-strip { padding: 1rem 1.25rem; gap: 0.75rem; }
+      .tiktok-divider { display: none; }
+      .tiktok-tagline { display: none; }
+    }
+
     /* FOOTER */
     footer {
       padding: 2rem 2.5rem;
@@ -634,7 +707,7 @@
   ">
     <div id="intro-logo" style="opacity:0; transform: scale(0.8); transition: opacity 0.6s ease, transform 0.6s ease;">
       <svg width="56" height="56" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
-        style="filter: drop-shadow(0 0 12px #f59e0b80);">
+        style="animation: glow 2.5s ease-in-out infinite;">
         <rect width="32" height="32" rx="8" fill="#a0a0a0"/>
         <rect x="8" y="8" width="7" height="16" rx="2" fill="#080808"/>
         <rect x="17" y="8" width="7" height="9" rx="2" fill="#080808"/>
@@ -645,7 +718,7 @@
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 1.5rem; font-weight: 700;
       letter-spacing: 0.15em; text-transform: uppercase;
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
+      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa, #ef4444);
       background-size: 200% 100%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       animation: shimmer 2s linear infinite;
@@ -654,10 +727,10 @@
     ">Blacqout</div>
     <div id="intro-bar" style="
       width: 0px; height: 2px;
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa);
+      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa);
       border-radius: 2px;
       transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
-      box-shadow: 0 0 8px #f59e0b60;
+      box-shadow: 0 0 8px #a78bfa60;
     "></div>
   </div>
 
@@ -757,11 +830,31 @@
     </div>
   </div>
 
+  <!-- TIKTOK STRIP -->
+  <!-- 💡 TIKTOK: Sobald du bereit bist, ersetze "@deinhandle" und den href-Link mit deinem echten TikTok-Profil -->
+  <div class="tiktok-strip">
+    <div class="tiktok-strip-inner">
+      <div class="tiktok-icon-wrap">
+        <!-- TikTok Logo SVG -->
+        <svg class="tiktok-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" fill="#a0a0a0"/>
+        </svg>
+        <span class="tiktok-handle">@blacqout._</span>
+      </div>
+      <div class="tiktok-divider"></div>
+      <span class="tiktok-tagline">Einblicke, Tipps & Projekte auf TikTok</span>
+      <a href="https://www.tiktok.com/@blacqout._" target="_blank" rel="noopener" class="tiktok-cta">
+        Folgen →
+      </a>
+    </div>
+  </div>
+
   <!-- PAKETE -->
   <section id="pakete">
     <p class="section-label">Pakete</p>
     <h2 class="section-title">Klare Preise. Kein Kleingedrucktes.</h2>
     <p class="section-sub">Einmalige Erstellung, monatliches Hosting. Jedes Paket enthält beides — Erstellung und Hosting gehören zusammen.</p>
+    <p style="font-size:0.8rem;color:#444;margin-bottom:2.5rem;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:8px;display:inline-block;">⚠ 3D-Animationen werden aktuell nicht angeboten.</p>
 
     <div class="pricing-grid">
       <div class="pricing-card">
@@ -770,14 +863,15 @@
           <sup>€</sup>599
           <span class="note">einmalig (Erstellung)</span>
         </div>
-        <p class="pricing-desc">Perfekt für Einzelunternehmer und kleine Businesses, die einen starken ersten Eindruck hinterlassen wollen.</p>
+        <p class="pricing-desc">Für Einzelunternehmer, die schnell und professionell online gehen wollen — ohne Schnickschnack.</p>
         <ul class="pricing-features">
           <li>1 Seite (Landing Page)</li>
           <li>Professionelles Dark-Design</li>
           <li>Mobil & Laptop optimiert</li>
           <li>Kontaktformular</li>
+          <li>Lieferzeit: ca. 3 Werktage</li>
         </ul>
-        <div class="pricing-hosting">+ 50 €/Monat Hosting</div>
+        <div class="pricing-hosting">+ 30 €/Monat Hosting</div>
         <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;">Jetzt anfragen</a>
       </div>
 
@@ -785,16 +879,17 @@
         <span class="featured-tag">Beliebt</span>
         <p class="pricing-name">Business</p>
         <div class="pricing-price">
-          Auf Anfrage
-          <span class="note">individuell kalkuliert</span>
+          <sup>€</sup>799
+          <span class="note">einmalig (Erstellung)</span>
         </div>
-        <p class="pricing-desc">Für Unternehmen, die mehr als eine Seite brauchen — mit mehreren Unterseiten, mehr Inhalt und mehr Wirkung.</p>
+        <p class="pricing-desc">Für Businesses, die mehr Inhalt, mehr Seiten und ein vollständig individuelles Auftreten brauchen.</p>
         <ul class="pricing-features">
-          <li>Mehrere Seiten</li>
-          <li>Individuelles Design</li>
+          <li>Bis zu 5 Unterseiten</li>
+          <li>Vollständig angepasstes Design</li>
           <li>Mobil & Laptop optimiert</li>
-          <li>Kontaktformular & mehr</li>
+          <li>Kontaktformular & Galerie</li>
           <li>Persönliche Beratung</li>
+          <li>Lieferzeit: ca. 10 Werktage</li>
         </ul>
         <div class="pricing-hosting">+ 50 €/Monat Hosting · +10 € pro Unterseite</div>
         <a href="#kontakt" class="btn btn-primary" style="margin-top:0.5rem;">Jetzt anfragen</a>
@@ -803,18 +898,20 @@
       <div class="pricing-card">
         <p class="pricing-name">Individuell</p>
         <div class="pricing-price">
-          Nach Absprache
-          <span class="note">100 % maßgeschneidert</span>
+          <sup>€</sup>2.500
+          <span class="note">einmalig (Erstellung)</span>
         </div>
-        <p class="pricing-desc">Komplexe Projekte mit besonderen Anforderungen — wir setzen um, was du dir vorstellst.</p>
+        <p class="pricing-desc">Für komplexe Projekte ohne Grenzen — Sonderfunktionen, Integrationen und ein animiertes Intro inklusive.</p>
         <ul class="pricing-features">
           <li>Unbegrenzte Seiten</li>
           <li>Vollständig angepasstes Design</li>
-          <li>Sonderfunktionen möglich</li>
+          <li>Mobil & Laptop optimiert</li>
+          <li>Animiertes Intro auf Wunsch</li>
+          <li>Sonderfunktionen & Integrationen</li>
           <li>Persönlicher Ansprechpartner</li>
           <li>Prioritäts-Support</li>
         </ul>
-        <div class="pricing-hosting">+ Hosting nach Projektumfang</div>
+        <div class="pricing-hosting">+ 50 €/Monat pro Seite · Minimum 3 Seiten (150 €/Monat)</div>
         <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;">Jetzt anfragen</a>
       </div>
     </div>
@@ -918,8 +1015,8 @@
           <label>Paket</label>
           <select id="f-paket">
             <option value="">Paket auswählen</option>
-            <option>Starter — 599 €</option>
-            <option>Business — Auf Anfrage</option>
+            <option>Starter — 599 € (+ 30 €/Monat Hosting)</option>
+            <option>Business — 799 €</option>
             <option>Individuell — Nach Absprache</option>
             <option>Noch unsicher</option>
           </select>
@@ -976,6 +1073,7 @@
     </div>
   </section>
 
+
   <!-- FOOTER -->
   <footer>
     <span>© 2026 Blacqout. Alle Rechte vorbehalten.</span>
@@ -983,6 +1081,15 @@
       <ul>
         <li><a href="#impressum" style="color:var(--muted);text-decoration:none;font-size:0.8rem;">Impressum</a></li>
         <li><a href="#datenschutz" style="color:var(--muted);text-decoration:none;font-size:0.8rem;">Datenschutz</a></li>
+        <!-- 💡 TIKTOK: href anpassen wenn bereit -->
+        <li>
+          <a href="https://www.tiktok.com/@blacqout._" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;font-size:0.8rem;display:inline-flex;align-items:center;gap:0.35rem;" title="TikTok">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" fill="currentColor"/>
+            </svg>
+            TikTok
+          </a>
+        </li>
       </ul>
     </nav>
   </footer>
