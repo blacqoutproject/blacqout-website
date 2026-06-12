@@ -11,8 +11,8 @@
       --bg: #080808;
       --surface: #111111;
       --border: #1e1e1e;
-      --text: #a0a0a0;
-      --muted: #666;
+      --text: #ffffff;
+      --muted: #ffffff;
       --dot: #ffffff12;
     }
 
@@ -47,13 +47,13 @@
     }
 
     .nav-brand svg {
-      filter: drop-shadow(0 0 5px #a78bfa60);
+      filter: drop-shadow(0 0 5px #f59e0b60);
       animation: glow 2.5s ease-in-out infinite;
     }
 
     @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 4px #a78bfa40); }
-      50% { filter: drop-shadow(0 0 10px #a78bfa80) drop-shadow(0 0 20px #a78bfa40); }
+      0%, 100% { filter: drop-shadow(0 0 4px #f59e0b40); }
+      50% { filter: drop-shadow(0 0 10px #f59e0b80) drop-shadow(0 0 20px #f59e0b40); }
     }
 
     .nav-brand-text {
@@ -61,7 +61,7 @@
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa, #ef4444);
+      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
       background-size: 200% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -89,7 +89,7 @@
     nav.main-nav ul { list-style: none; display: flex; gap: 2rem; }
 
     nav.main-nav ul a {
-      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa, #ef4444);
+      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
       background-size: 200% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -113,6 +113,38 @@
     }
 
     .nav-cta:hover { opacity: 0.85; }
+
+    /* LANG TOGGLE */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.65rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-family: inherit;
+    }
+
+    .lang-btn.active {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .lang-btn:not(.active):hover { background: #1a1a1a; }
 
     /* HAMBURGER */
     .menu-toggle {
@@ -380,7 +412,7 @@
 
     .pricing-hosting {
       font-size: 0.78rem;
-      color: #444;
+      color: #ffffff;
       padding-top: 1rem;
       border-top: 1px solid var(--border);
     }
@@ -422,7 +454,7 @@
 
     .step-note {
       font-size: 0.75rem;
-      color: #3a3a3a;
+      color: #aaaaaa;
       padding-top: 0.5rem;
       border-top: 1px solid var(--border);
       margin-top: auto;
@@ -551,79 +583,6 @@
     .form-group select option { background: #111; }
     .form-group textarea { resize: vertical; min-height: 100px; }
 
-    /* TIKTOK STRIP */
-    .tiktok-strip {
-      width: 100%;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: #0c0c0c;
-      padding: 1.25rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .tiktok-strip-inner {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .tiktok-icon-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .tiktok-logo {
-      width: 22px; height: 22px;
-      flex-shrink: 0;
-    }
-
-    .tiktok-handle {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.02em;
-    }
-
-    .tiktok-divider {
-      width: 1px; height: 18px;
-      background: var(--border);
-    }
-
-    .tiktok-tagline {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    .tiktok-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--bg);
-      background: var(--text);
-      padding: 0.35rem 0.9rem;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: opacity 0.2s;
-      white-space: nowrap;
-    }
-
-    .tiktok-cta:hover { opacity: 0.85; }
-
-    @media (max-width: 640px) {
-      .tiktok-strip { padding: 1rem 1.25rem; gap: 0.75rem; }
-      .tiktok-divider { display: none; }
-      .tiktok-tagline { display: none; }
-    }
-
     /* FOOTER */
     footer {
       padding: 2rem 2.5rem;
@@ -680,11 +639,15 @@
       <span class="nav-brand-text">Blacqout</span>
     </a>
     <ul>
-      <li><a href="#pakete">Pakete</a></li>
-      <li><a href="#ablauf">Ablauf</a></li>
-      <li><a href="#ueber-uns">Über uns</a></li>
-      <li><a href="#kontakt" class="nav-cta">Anfragen</a></li>
+      <li><a href="#pakete" data-i18n="nav_packages">Pakete</a></li>
+      <li><a href="#ablauf" data-i18n="nav_process">Ablauf</a></li>
+      <li><a href="#ueber-uns" data-i18n="nav_about">Über uns</a></li>
+      <li><a href="#kontakt" class="nav-cta" data-i18n="nav_contact">Anfragen</a></li>
     </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen">
       <span></span><span></span><span></span>
     </button>
@@ -692,10 +655,10 @@
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#pakete" onclick="closeMobile()">Pakete</a>
-    <a href="#ablauf" onclick="closeMobile()">Ablauf</a>
-    <a href="#ueber-uns" onclick="closeMobile()">Über uns</a>
-    <a href="#kontakt" onclick="closeMobile()">Anfragen</a>
+    <a href="#pakete" onclick="closeMobile()" data-i18n="nav_packages">Pakete</a>
+    <a href="#ablauf" onclick="closeMobile()" data-i18n="nav_process">Ablauf</a>
+    <a href="#ueber-uns" onclick="closeMobile()" data-i18n="nav_about">Über uns</a>
+    <a href="#kontakt" onclick="closeMobile()" data-i18n="nav_contact">Anfragen</a>
   </div>
 
   <!-- INTRO -->
@@ -707,7 +670,7 @@
   ">
     <div id="intro-logo" style="opacity:0; transform: scale(0.8); transition: opacity 0.6s ease, transform 0.6s ease;">
       <svg width="56" height="56" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
-        style="animation: glow 2.5s ease-in-out infinite;">
+        style="filter: drop-shadow(0 0 12px #f59e0b80);">
         <rect width="32" height="32" rx="8" fill="#a0a0a0"/>
         <rect x="8" y="8" width="7" height="16" rx="2" fill="#080808"/>
         <rect x="17" y="8" width="7" height="9" rx="2" fill="#080808"/>
@@ -718,7 +681,7 @@
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 1.5rem; font-weight: 700;
       letter-spacing: 0.15em; text-transform: uppercase;
-      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa, #ef4444);
+      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
       background-size: 200% 100%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       animation: shimmer 2s linear infinite;
@@ -727,10 +690,10 @@
     ">Blacqout</div>
     <div id="intro-bar" style="
       width: 0px; height: 2px;
-      background: linear-gradient(90deg, #ef4444, #a78bfa, #a78bfa);
+      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa);
       border-radius: 2px;
       transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
-      box-shadow: 0 0 8px #a78bfa60;
+      box-shadow: 0 0 8px #f59e0b60;
     "></div>
   </div>
 
@@ -820,167 +783,143 @@
   <div class="hero">
     <div class="badge">
       <span class="badge-dot"></span>
-      Antwort innerhalb 24h
+      <span data-i18n="badge">Antwort innerhalb 24h</span>
     </div>
-    <h1>Deine Website.<br><span>Professionell gemacht.</span><br>Immer online.</h1>
-    <p>Wir bauen professionelle Websites — klar, schnell und ohne versteckte Kosten. Du konzentrierst dich auf dein Business, wir auf deinen Auftritt.</p>
+    <h1 data-i18n="hero_h1">Deine Website.<br><span>Professionell gemacht.</span><br>Immer online.</h1>
+    <p data-i18n="hero_p">Wir bauen deine Website — klar, schnell und ohne versteckte Kosten. Du kümmerst dich um dein Geschäft, wir um deine Website.</p>
     <div class="hero-actions">
-      <a href="#pakete" class="btn btn-primary">Pakete ansehen →</a>
-      <a href="#kontakt" class="btn btn-secondary">Kostenlos anfragen</a>
-    </div>
-  </div>
-
-  <!-- TIKTOK STRIP -->
-  <!-- 💡 TIKTOK: Sobald du bereit bist, ersetze "@deinhandle" und den href-Link mit deinem echten TikTok-Profil -->
-  <div class="tiktok-strip">
-    <div class="tiktok-strip-inner">
-      <div class="tiktok-icon-wrap">
-        <!-- TikTok Logo SVG -->
-        <svg class="tiktok-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" fill="#a0a0a0"/>
-        </svg>
-        <span class="tiktok-handle">@blacqout._</span>
-      </div>
-      <div class="tiktok-divider"></div>
-      <span class="tiktok-tagline">Einblicke, Tipps & Projekte auf TikTok</span>
-      <a href="https://www.tiktok.com/@blacqout._" target="_blank" rel="noopener" class="tiktok-cta">
-        Folgen →
-      </a>
+      <a href="#pakete" class="btn btn-primary" data-i18n="hero_btn1">Pakete ansehen →</a>
+      <a href="#kontakt" class="btn btn-secondary" data-i18n="hero_btn2">Kostenlos anfragen</a>
     </div>
   </div>
 
   <!-- PAKETE -->
   <section id="pakete">
-    <p class="section-label">Pakete</p>
-    <h2 class="section-title">Klare Preise. Kein Kleingedrucktes.</h2>
-    <p class="section-sub">Einmalige Erstellung, monatliches Hosting. Jedes Paket enthält beides — Erstellung und Hosting gehören zusammen.</p>
-    <p style="font-size:0.8rem;color:#444;margin-bottom:2.5rem;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:8px;display:inline-block;">⚠ 3D-Animationen werden aktuell nicht angeboten.</p>
+    <p class="section-label" data-i18n="nav_packages">Pakete</p>
+    <h2 class="section-title" data-i18n="pricing_title">Klare Preise. Kein Kleingedrucktes.</h2>
+    <p class="section-sub" data-i18n="pricing_sub">Du zahlst einmal für die Erstellung und dann monatlich fürs Hosting. Beides ist in jedem Paket dabei.</p>
+    <p style="font-size:0.78rem;color:#888;margin-top:-2.5rem;margin-bottom:3rem;" data-i18n="pricing_note">⚠ 3D-Animationen werden nicht angeboten.</p>
 
     <div class="pricing-grid">
       <div class="pricing-card">
         <p class="pricing-name">Starter</p>
         <div class="pricing-price">
           <sup>€</sup>599
-          <span class="note">einmalig (Erstellung)</span>
+          <span class="note" data-i18n="starter_note">einmalig (Erstellung)</span>
         </div>
-        <p class="pricing-desc">Für Einzelunternehmer, die schnell und professionell online gehen wollen — ohne Schnickschnack.</p>
+        <p class="pricing-desc" data-i18n="starter_desc">Ideal für Selbstständige und kleine Unternehmen, die online einen guten ersten Eindruck machen wollen.</p>
         <ul class="pricing-features">
-          <li>1 Seite (Landing Page)</li>
-          <li>Professionelles Dark-Design</li>
-          <li>Mobil & Laptop optimiert</li>
-          <li>Kontaktformular</li>
-          <li>Lieferzeit: ca. 3 Werktage</li>
+          <li data-i18n="starter_f1">1 Seite</li>
+          <li data-i18n="starter_f2">Mobil & Laptop optimiert</li>
+          <li data-i18n="starter_f3">Kontaktformular</li>
         </ul>
-        <div class="pricing-hosting">+ 30 €/Monat Hosting</div>
-        <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;">Jetzt anfragen</a>
+        <div class="pricing-hosting" data-i18n="starter_hosting">+ 50 €/Monat Hosting</div>
+        <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;" data-i18n="btn_inquire">Jetzt anfragen</a>
       </div>
 
       <div class="pricing-card featured">
-        <span class="featured-tag">Beliebt</span>
-        <p class="pricing-name">Business</p>
+        <span class="featured-tag" data-i18n="popular">Beliebt</span>
+        <p class="pricing-name" data-i18n="business_name">Unternehmen</p>
         <div class="pricing-price">
-          <sup>€</sup>799
-          <span class="note">einmalig (Erstellung)</span>
+          <span data-i18n="business_price">Auf Anfrage</span>
+          <span class="note" data-i18n="business_note">individuell kalkuliert</span>
         </div>
-        <p class="pricing-desc">Für Businesses, die mehr Inhalt, mehr Seiten und ein vollständig individuelles Auftreten brauchen.</p>
+        <p class="pricing-desc" data-i18n="business_desc">Du brauchst mehr als eine Seite? Kein Problem — mehrere Unterseiten, mehr Inhalt, mehr Wirkung.</p>
         <ul class="pricing-features">
-          <li>Bis zu 5 Unterseiten</li>
-          <li>Vollständig angepasstes Design</li>
-          <li>Mobil & Laptop optimiert</li>
-          <li>Kontaktformular & Galerie</li>
-          <li>Persönliche Beratung</li>
-          <li>Lieferzeit: ca. 10 Werktage</li>
+          <li data-i18n="business_f1">Mehrere Seiten</li>
+          <li data-i18n="business_f2">Individuelles Design</li>
+          <li data-i18n="business_f3">Mobil & Laptop optimiert</li>
+          <li data-i18n="business_f4">Kontaktformular & mehr</li>
+          <li data-i18n="business_f5">Persönliche Beratung</li>
         </ul>
-        <div class="pricing-hosting">+ 50 €/Monat Hosting · +10 € pro Unterseite</div>
-        <a href="#kontakt" class="btn btn-primary" style="margin-top:0.5rem;">Jetzt anfragen</a>
+        <div class="pricing-hosting" data-i18n="business_hosting">+ 50 €/Monat Hosting · +10 € pro Unterseite</div>
+        <a href="#kontakt" class="btn btn-primary" style="margin-top:0.5rem;" data-i18n="btn_inquire">Jetzt anfragen</a>
       </div>
 
       <div class="pricing-card">
-        <p class="pricing-name">Individuell</p>
+        <p class="pricing-name" data-i18n="custom_name">Individuell</p>
         <div class="pricing-price">
-          <sup>€</sup>2.500
-          <span class="note">einmalig (Erstellung)</span>
+          <span data-i18n="custom_price">Nach Absprache</span>
+          <span class="note" data-i18n="custom_note">100 % maßgeschneidert</span>
         </div>
-        <p class="pricing-desc">Für komplexe Projekte ohne Grenzen — Sonderfunktionen, Integrationen und ein animiertes Intro inklusive.</p>
+        <p class="pricing-desc" data-i18n="custom_desc">Du hast besondere Wünsche oder ein größeres Projekt? Wir setzen genau das um, was du brauchst.</p>
         <ul class="pricing-features">
-          <li>Unbegrenzte Seiten</li>
-          <li>Vollständig angepasstes Design</li>
-          <li>Mobil & Laptop optimiert</li>
-          <li>Animiertes Intro auf Wunsch</li>
-          <li>Sonderfunktionen & Integrationen</li>
-          <li>Persönlicher Ansprechpartner</li>
-          <li>Prioritäts-Support</li>
+          <li data-i18n="custom_f1">Unbegrenzte Seiten</li>
+          <li data-i18n="custom_f2">Vollständig angepasstes Design</li>
+          <li data-i18n="custom_f3">Sonderfunktionen möglich</li>
+          <li data-i18n="custom_f4">Persönlicher Ansprechpartner</li>
+          <li data-i18n="custom_f5">Prioritäts-Support</li>
         </ul>
-        <div class="pricing-hosting">+ 50 €/Monat pro Seite · Minimum 3 Seiten (150 €/Monat)</div>
-        <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;">Jetzt anfragen</a>
+        <div class="pricing-hosting" data-i18n="custom_hosting">+ Hosting nach Projektumfang</div>
+        <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;" data-i18n="btn_inquire">Jetzt anfragen</a>
       </div>
     </div>
   </section>
 
   <!-- ABLAUF -->
   <section id="ablauf">
-    <p class="section-label">Ablauf</p>
-    <h2 class="section-title">So läuft es ab.</h2>
-    <p class="section-sub">Vom ersten Kontakt bis zur fertigen Website — transparent, einfach und ohne Überraschungen.</p>
+    <p class="section-label" data-i18n="nav_process">Ablauf</p>
+    <h2 class="section-title" data-i18n="process_title">So läuft es ab.</h2>
+    <p class="section-sub" data-i18n="process_sub">Von deiner ersten Nachricht bis zur fertigen Website — kein Chaos, keine Überraschungen.</p>
 
     <div class="steps">
       <div class="step">
         <span class="step-num">01</span>
         <span class="step-icon">✉</span>
-        <h4>Du fragst an</h4>
-        <p>Du schreibst uns über das Kontaktformular oder per E-Mail — mit deiner Idee oder deinem Wunsch.</p>
+        <h4 data-i18n="step1_title">Du fragst an</h4>
+        <p data-i18n="step1_p">Schreib uns kurz über das Formular oder per E-Mail — sag uns einfach, was du dir vorstellst.</p>
       </div>
       <div class="step">
         <span class="step-num">02</span>
         <span class="step-icon">💬</span>
-        <h4>Wir besprechen alles</h4>
-        <p>Wir antworten dir persönlich, klären deine Wünsche und sagen dir klar, ob und wie wir das umsetzen können.</p>
-        <span class="step-note">Kein passendes Paket? Wir sagen es dir ehrlich.</span>
+        <h4 data-i18n="step2_title">Wir besprechen alles</h4>
+        <p data-i18n="step2_p">Wir melden uns persönlich, besprechen was du willst und sagen dir direkt, ob und wie wir das machen können.</p>
+        <span class="step-note" data-i18n="step2_note">Kein passendes Paket? Wir sagen es dir ehrlich.</span>
       </div>
       <div class="step">
         <span class="step-num">03</span>
         <span class="step-icon">🖥</span>
-        <h4>Vorschau</h4>
-        <p>Wir bauen deine Website. Bevor sie live geht, siehst du sie als Vorschau — du entscheidest, ob alles passt.</p>
-        <span class="step-note">Erst wenn du zufrieden bist, geht es weiter.</span>
+        <h4 data-i18n="step3_title">Vorschau</h4>
+        <p data-i18n="step3_p">Wir bauen deine Website und schicken dir eine Vorschau. Du sagst ob alles passt — erst dann geht sie live.</p>
+        <span class="step-note" data-i18n="step3_note">Erst wenn du zufrieden bist, geht es weiter.</span>
       </div>
       <div class="step">
         <span class="step-num">04</span>
         <span class="step-icon">🏦</span>
-        <h4>Zahlung in zwei Schritten</h4>
-        <p>Nach Auftragsbestätigung werden 30 % des Erstellungspreises fällig. Die restlichen 70 % zahlst du nach Freigabe der fertigen Website.</p>
-        <span class="step-note">Banküberweisung. Keine weiteren Zahlungsmittel.</span>
+        <h4 data-i18n="step4_title">Zahlung in zwei Schritten</h4>
+        <p data-i18n="step4_p">Wenn du uns den Auftrag gibst, zahlst du 30 % als Anzahlung. Die restlichen 70 % zahlst du erst, wenn die Website fertig und abgenommen ist.</p>
+        <span class="step-note" data-i18n="step4_note">Banküberweisung. Keine weiteren Zahlungsmittel.</span>
       </div>
     </div>
   </section>
 
   <!-- ÜBER UNS -->
   <section id="ueber-uns">
-    <p class="section-label">Über uns</p>
-    <h2 class="section-title">Wir bauen Websites,<br>die funktionieren.</h2>
+    <p class="section-label" data-i18n="nav_about">Über uns</p>
+    <h2 class="section-title" data-i18n="about_title">Wir bauen Websites,<br>die funktionieren.</h2>
 
     <div class="about-grid">
       <div class="about-text">
-        <p>Blacqout ist eine Webdesign-Agentur mit einem klaren Ziel: professionelle Online-Auftritte zu einem fairen, transparenten Preis.</p>
-        <p>Wir glauben, dass eine gute Website kein Luxus sein sollte. Deshalb bieten wir feste Pakete ohne versteckte Kosten — du weißt von Anfang an, was dich erwartet.</p>
-        <p>Von der ersten Idee bis zur fertigen Website begleiten wir dich persönlich. Kein Callcenter, kein Chaos — direkte Kommunikation, schnelle Umsetzung.</p>
+        <p><span style="background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; font-weight: 700;">Blacqout</span> <span data-i18n="about_p1">baut Websites — fair, transparent und ohne versteckte Kosten.</span></p>
+        <p data-i18n="about_p2">Eine gute Website sollte kein Luxus sein. Deshalb haben wir feste Pakete — du weißt von Anfang an, was du zahlst.</p>
+        <p data-i18n="about_p3">Du hast von Anfang bis Ende eine direkte Ansprechperson. Kein Callcenter, kein Hin-und-Her — einfach direkt und schnell.</p>
       </div>
       <div class="about-values">
         <div class="value-item">
-          <h4>Transparenz</h4>
-          <p>Feste Preise, kein Kleingedrucktes. Du weißt immer, wofür du zahlst.</p>
+          <h4 data-i18n="val1_title">Transparenz</h4>
+          <p data-i18n="val1_p">Feste Preise, kein Kleingedrucktes. Du weißt immer, wofür du zahlst.</p>
         </div>
         <div class="value-item">
-          <h4>Qualität</h4>
-          <p>Jede Website wird mit Sorgfalt gestaltet — kein Template-Baukastensystem.</p>
+          <h4 data-i18n="val2_title">Qualität</h4>
+          <p data-i18n="val2_p">Jede Website wird einzeln gestaltet — kein Baukastensystem, keine 0815-Vorlagen.</p>
         </div>
         <div class="value-item">
-          <h4>Verlässlichkeit</h4>
-          <p>Hosting inklusive, Erreichbarkeit garantiert. Deine Website ist immer online.</p>
+          <h4 data-i18n="val3_title">Verlässlichkeit</h4>
+          <p data-i18n="val3_p">Das Hosting ist dabei. Deine Website läuft — Punkt.</p>
         </div>
         <div class="value-item">
-          <h4>Einfachheit</h4>
-          <p>Du kümmerst dich um dein Business. Wir kümmern uns um deinen Webauftritt.</p>
+          <h4 data-i18n="val4_title">Einfachheit</h4>
+          <p data-i18n="val4_p">Du kümmerst dich um dein Business. Wir kümmern uns um deinen Webauftritt.</p>
         </div>
       </div>
     </div>
@@ -988,15 +927,15 @@
 
   <!-- KONTAKT -->
   <section id="kontakt">
-    <p class="section-label">Kontakt</p>
-    <h2 class="section-title">Projekt starten.</h2>
-    <p class="section-sub">Schreib uns — wir melden uns innerhalb von 24 Stunden bei dir.</p>
+    <p class="section-label" data-i18n="nav_contact">Kontakt</p>
+    <h2 class="section-title" data-i18n="contact_title">Projekt starten.</h2>
+    <p class="section-sub" data-i18n="contact_sub">Schreib uns — wir melden uns innerhalb von 24 Stunden bei dir.</p>
 
     <div class="contact-wrap">
       <div class="contact-info">
         <div>
-          <h3>Lass uns reden.</h3>
-          <p>Du hast eine Idee oder weißt noch nicht genau, was du brauchst — kein Problem. Wir besprechen alles gemeinsam und finden das passende Paket für dich.</p>
+          <h3 data-i18n="contact_h3">Lass uns reden.</h3>
+          <p data-i18n="contact_p">Du hast eine Idee oder weißt noch nicht genau, was du willst — kein Problem. Wir besprechen das zusammen und finden was Passendes.</p>
           <a href="mailto:blacqout.anfragen@gmx.de" class="contact-email">
             ✉ blacqout.anfragen@gmx.de
           </a>
@@ -1004,37 +943,37 @@
       </div>
       <div class="contact-form">
         <div class="form-group">
-          <label>Name</label>
-          <input type="text" id="f-name" placeholder="Dein Name" />
+          <label data-i18n="form_name">Name</label>
+          <input type="text" id="f-name" data-i18n-placeholder="form_name_ph" placeholder="Dein Name" />
         </div>
         <div class="form-group">
           <label>E-Mail</label>
-          <input type="email" id="f-email" placeholder="deine@email.de" />
+          <input type="email" id="f-email" data-i18n-placeholder="form_email_ph" placeholder="deine@email.de" />
         </div>
         <div class="form-group">
-          <label>Paket</label>
+          <label data-i18n="form_package">Paket</label>
           <select id="f-paket">
-            <option value="">Paket auswählen</option>
-            <option>Starter — 599 € (+ 30 €/Monat Hosting)</option>
-            <option>Business — 799 €</option>
-            <option>Individuell — Nach Absprache</option>
-            <option>Noch unsicher</option>
+            <option value="" data-i18n="form_package_ph">Paket auswählen</option>
+            <option>Starter — 599 €</option>
+            <option data-i18n="opt_business">Unternehmen — Auf Anfrage</option>
+            <option data-i18n="opt_custom">Individuell — Nach Absprache</option>
+            <option data-i18n="opt_unsure">Noch unsicher</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Nachricht</label>
-          <textarea id="f-message" placeholder="Erzähl uns von deinem Projekt…"></textarea>
+          <label data-i18n="form_message">Nachricht</label>
+          <textarea id="f-message" data-i18n-placeholder="form_message_ph" placeholder="Erzähl uns von deinem Projekt…"></textarea>
         </div>
-        <button class="btn btn-primary" id="f-submit" onclick="sendForm(event)">Anfrage senden →</button>
+        <button class="btn btn-primary" id="f-submit" onclick="sendForm(event)" data-i18n="form_submit">Anfrage senden →</button>
         <p id="f-status" style="font-size:0.82rem;color:var(--muted);display:none;"></p>
-        <p style="font-size:0.75rem;color:#333;margin-top:0.25rem;">Oder direkt: <a href="mailto:blacqout.anfragen@gmx.de" style="color:#444;">blacqout.anfragen@gmx.de</a></p>
+        <p style="font-size:0.75rem;color:#333;margin-top:0.25rem;"><span data-i18n="form_or">Oder direkt:</span> <a href="mailto:blacqout.anfragen@gmx.de" style="color:#444;">blacqout.anfragen@gmx.de</a></p>
       </div>
     </div>
   </section>
 
   <!-- IMPRESSUM -->
   <section id="impressum" style="border-top:1px solid var(--border);">
-    <p class="section-label">Rechtliches</p>
+    <p class="section-label" data-i18n="legal_label">Rechtliches</p>
     <h2 class="section-title">Impressum</h2>
     <div style="color:var(--muted);font-size:0.9rem;line-height:2;max-width:560px;">
       <p><strong style="color:var(--text)">Angaben gemäß § 5 TMG</strong></p>
@@ -1073,26 +1012,139 @@
     </div>
   </section>
 
-
   <!-- FOOTER -->
   <footer>
-    <span>© 2026 Blacqout. Alle Rechte vorbehalten.</span>
+    <span data-i18n="footer_copy">© 2026 Blacqout. Alle Rechte vorbehalten.</span>
     <nav>
       <ul>
         <li><a href="#impressum" style="color:var(--muted);text-decoration:none;font-size:0.8rem;">Impressum</a></li>
-        <li><a href="#datenschutz" style="color:var(--muted);text-decoration:none;font-size:0.8rem;">Datenschutz</a></li>
-        <!-- 💡 TIKTOK: href anpassen wenn bereit -->
-        <li>
-          <a href="https://www.tiktok.com/@blacqout._" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;font-size:0.8rem;display:inline-flex;align-items:center;gap:0.35rem;" title="TikTok">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" fill="currentColor"/>
-            </svg>
-            TikTok
-          </a>
-        </li>
+        <li><a href="#datenschutz" style="color:var(--muted);text-decoration:none;font-size:0.8rem;" data-i18n="footer_privacy">Datenschutz</a></li>
       </ul>
     </nav>
   </footer>
+
+  <script>
+  const translations = {
+    de: {
+      nav_packages: 'Pakete', nav_process: 'Ablauf', nav_about: 'Über uns', nav_contact: 'Anfragen',
+      badge: 'Antwort innerhalb 24h',
+      hero_h1: 'Deine Website.<br><span>Professionell gemacht.</span><br>Immer online.',
+      hero_p: 'Wir bauen deine Website — klar, schnell und ohne versteckte Kosten. Du kümmerst dich um dein Geschäft, wir um deine Website.',
+      hero_btn1: 'Pakete ansehen →', hero_btn2: 'Kostenlos anfragen',
+      pricing_title: 'Klare Preise. Kein Kleingedrucktes.',
+      pricing_sub: 'Du zahlst einmal für die Erstellung und dann monatlich fürs Hosting. Beides ist in jedem Paket dabei.',
+      pricing_note: '⚠ 3D-Animationen werden nicht angeboten.',
+      starter_note: 'einmalig (Erstellung)',
+      starter_desc: 'Ideal für Selbstständige und kleine Unternehmen, die online einen guten ersten Eindruck machen wollen.',
+      starter_f1: '1 Seite', starter_f2: 'Mobil & Laptop optimiert', starter_f3: 'Kontaktformular',
+      starter_hosting: '+ 50 €/Monat Hosting',
+      popular: 'Beliebt', business_name: 'Unternehmen', business_price: 'Auf Anfrage',
+      business_note: 'individuell kalkuliert',
+      business_desc: 'Du brauchst mehr als eine Seite? Kein Problem — mehrere Unterseiten, mehr Inhalt, mehr Wirkung.',
+      business_f1: 'Mehrere Seiten', business_f2: 'Individuelles Design', business_f3: 'Mobil & Laptop optimiert',
+      business_f4: 'Kontaktformular & mehr', business_f5: 'Persönliche Beratung',
+      business_hosting: '+ 50 €/Monat Hosting · +10 € pro Unterseite',
+      custom_name: 'Individuell', custom_price: 'Nach Absprache', custom_note: '100 % maßgeschneidert',
+      custom_desc: 'Du hast besondere Wünsche oder ein größeres Projekt? Wir setzen genau das um, was du brauchst.',
+      custom_f1: 'Unbegrenzte Seiten', custom_f2: 'Vollständig angepasstes Design',
+      custom_f3: 'Sonderfunktionen möglich', custom_f4: 'Persönlicher Ansprechpartner', custom_f5: 'Prioritäts-Support',
+      custom_hosting: '+ Hosting nach Projektumfang',
+      btn_inquire: 'Jetzt anfragen',
+      process_title: 'So läuft es ab.',
+      process_sub: 'Von deiner ersten Nachricht bis zur fertigen Website — kein Chaos, keine Überraschungen.',
+      step1_title: 'Du fragst an', step1_p: 'Schreib uns kurz über das Formular oder per E-Mail — sag uns einfach, was du dir vorstellst.',
+      step2_title: 'Wir besprechen alles', step2_p: 'Wir melden uns persönlich, besprechen was du willst und sagen dir direkt, ob und wie wir das machen können.',
+      step2_note: 'Kein passendes Paket? Wir sagen es dir ehrlich.',
+      step3_title: 'Vorschau', step3_p: 'Wir bauen deine Website und schicken dir eine Vorschau. Du sagst ob alles passt — erst dann geht sie live.',
+      step3_note: 'Erst wenn du zufrieden bist, geht es weiter.',
+      step4_title: 'Zahlung in zwei Schritten', step4_p: 'Wenn du uns den Auftrag gibst, zahlst du 30 % als Anzahlung. Die restlichen 70 % zahlst du erst, wenn die Website fertig und abgenommen ist.',
+      step4_note: 'Banküberweisung. Keine weiteren Zahlungsmittel.',
+      about_title: 'Wir bauen Websites,<br>die funktionieren.',
+      about_p1: 'baut Websites — fair, transparent und ohne versteckte Kosten.',
+      about_p2: 'Eine gute Website sollte kein Luxus sein. Deshalb haben wir feste Pakete — du weißt von Anfang an, was du zahlst.',
+      about_p3: 'Du hast von Anfang bis Ende eine direkte Ansprechperson. Kein Callcenter, kein Hin-und-Her — einfach direkt und schnell.',
+      val1_title: 'Transparenz', val1_p: 'Feste Preise, kein Kleingedrucktes. Du weißt immer, wofür du zahlst.',
+      val2_title: 'Qualität', val2_p: 'Jede Website wird einzeln gestaltet — kein Baukastensystem, keine 0815-Vorlagen.',
+      val3_title: 'Verlässlichkeit', val3_p: 'Das Hosting ist dabei. Deine Website läuft — Punkt.',
+      val4_title: 'Einfachheit', val4_p: 'Du kümmerst dich um dein Business. Wir kümmern uns um deinen Webauftritt.',
+      contact_title: 'Projekt starten.', contact_sub: 'Schreib uns — wir melden uns innerhalb von 24 Stunden bei dir.',
+      contact_h3: 'Lass uns reden.',
+      contact_p: 'Du hast eine Idee oder weißt noch nicht genau, was du willst — kein Problem. Wir besprechen das zusammen und finden was Passendes.',
+      form_name: 'Name', form_name_ph: 'Dein Name', form_email_ph: 'deine@email.de',
+      form_package: 'Paket', form_package_ph: 'Paket auswählen',
+      opt_business: 'Unternehmen — Auf Anfrage', opt_custom: 'Individuell — Nach Absprache', opt_unsure: 'Noch unsicher',
+      form_message: 'Nachricht', form_message_ph: 'Erzähl uns von deinem Projekt…',
+      form_submit: 'Anfrage senden →', form_or: 'Oder direkt:',
+      legal_label: 'Rechtliches', footer_copy: '© 2026 Blacqout. Alle Rechte vorbehalten.', footer_privacy: 'Datenschutz',
+    },
+    en: {
+      nav_packages: 'Packages', nav_process: 'Process', nav_about: 'About', nav_contact: 'Contact',
+      badge: 'Reply within 24h',
+      hero_h1: 'Your Website.<br><span>Professionally built.</span><br>Always online.',
+      hero_p: 'We build your website — clear, fast, and with no hidden costs. You focus on your business, we handle your online presence.',
+      hero_btn1: 'View packages →', hero_btn2: 'Get a free quote',
+      pricing_title: 'Clear pricing. No hidden fees.',
+      pricing_sub: 'You pay once for the build, then monthly for hosting. Both are included in every package.',
+      pricing_note: '⚠ 3D animations are not offered.',
+      starter_note: 'one-time (build)',
+      starter_desc: 'Perfect for freelancers and small businesses who want to make a great first impression online.',
+      starter_f1: '1 page', starter_f2: 'Mobile & desktop optimized', starter_f3: 'Contact form',
+      starter_hosting: '+ €50/month hosting',
+      popular: 'Popular', business_name: 'Business', business_price: 'On request',
+      business_note: 'individually calculated',
+      business_desc: 'Need more than one page? No problem — multiple subpages, more content, more impact.',
+      business_f1: 'Multiple pages', business_f2: 'Custom design', business_f3: 'Mobile & desktop optimized',
+      business_f4: 'Contact form & more', business_f5: 'Personal consultation',
+      business_hosting: '+ €50/month hosting · +€10 per subpage',
+      custom_name: 'Custom', custom_price: 'By arrangement', custom_note: '100% tailor-made',
+      custom_desc: 'Got special requirements or a bigger project? We build exactly what you need.',
+      custom_f1: 'Unlimited pages', custom_f2: 'Fully custom design',
+      custom_f3: 'Special features possible', custom_f4: 'Dedicated contact person', custom_f5: 'Priority support',
+      custom_hosting: '+ Hosting based on project scope',
+      btn_inquire: 'Get in touch',
+      process_title: 'How it works.',
+      process_sub: 'From your first message to the finished website — no chaos, no surprises.',
+      step1_title: 'You reach out', step1_p: 'Send us a quick message via the form or email — just tell us what you have in mind.',
+      step2_title: 'We talk it through', step2_p: 'We get back to you personally, discuss what you want, and tell you directly if and how we can make it happen.',
+      step2_note: 'No suitable package? We\'ll tell you honestly.',
+      step3_title: 'Preview', step3_p: 'We build your website and send you a preview. You say if everything looks right — only then does it go live.',
+      step3_note: 'We only move forward when you\'re happy.',
+      step4_title: 'Payment in two steps', step4_p: 'When you place the order, you pay 30% upfront. The remaining 70% is due only after the finished website is approved by you.',
+      step4_note: 'Bank transfer only. No other payment methods.',
+      about_title: 'We build websites<br>that work.',
+      about_p1: 'builds websites — fair, transparent, and with no hidden costs.',
+      about_p2: 'A good website shouldn\'t be a luxury. That\'s why we offer fixed packages — you know what you\'re paying from day one.',
+      about_p3: 'You have one direct contact from start to finish. No call centres, no back-and-forth — just straightforward and fast.',
+      val1_title: 'Transparency', val1_p: 'Fixed prices, no fine print. You always know what you\'re paying for.',
+      val2_title: 'Quality', val2_p: 'Every website is designed individually — no page builders, no generic templates.',
+      val3_title: 'Reliability', val3_p: 'Hosting is included. Your website stays online — period.',
+      val4_title: 'Simplicity', val4_p: 'You focus on your business. We take care of your web presence.',
+      contact_title: 'Start a project.', contact_sub: 'Write to us — we\'ll get back to you within 24 hours.',
+      contact_h3: 'Let\'s talk.',
+      contact_p: 'Got an idea or not sure what you need yet — no problem. We\'ll figure it out together.',
+      form_name: 'Name', form_name_ph: 'Your name', form_email_ph: 'your@email.com',
+      form_package: 'Package', form_package_ph: 'Select a package',
+      opt_business: 'Business — On request', opt_custom: 'Custom — By arrangement', opt_unsure: 'Not sure yet',
+      form_message: 'Message', form_message_ph: 'Tell us about your project…',
+      form_submit: 'Send request →', form_or: 'Or directly:',
+      legal_label: 'Legal', footer_copy: '© 2026 Blacqout. All rights reserved.', footer_privacy: 'Privacy Policy',
+    }
+  };
+
+  function setLang(lang) {
+    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    const t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
+  }
+  </script>
 
 </body>
 </html>
