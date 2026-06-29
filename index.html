@@ -6,1145 +6,793 @@
   <title>Blacqout — Websites die wirken.</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #080808;
-      --surface: #111111;
-      --border: #1e1e1e;
-      --text: #ffffff;
-      --muted: #ffffff;
-      --dot: #ffffff12;
+      --bg: #0a0a0a; --bg2: rgba(15,15,15,0.88); --bg3: rgba(22,22,22,0.92);
+      --accent: #ffffff; --muted: #888888; --border: #222222;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      min-height: 100vh;
-      background-image: radial-gradient(var(--dot) 1px, transparent 1px);
-      background-size: 32px 32px;
-    }
+    body { background: transparent; color: var(--accent); font-family: 'Inter','Helvetica Neue',Arial,sans-serif; font-size: 16px; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
 
     /* NAV */
-    nav.main-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: #0f0f0f;
-      border-bottom: 1px solid #2a2a2a;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
-    .nav-brand svg {
-      filter: drop-shadow(0 0 5px #f59e0b60);
-      animation: glow 2.5s ease-in-out infinite;
-    }
-
-    @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 4px #f59e0b40); }
-      50% { filter: drop-shadow(0 0 10px #f59e0b80) drop-shadow(0 0 20px #f59e0b40); }
-    }
-
-    .nav-brand-text {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 4s linear infinite;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: 0% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    .nav-logo-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    nav.main-nav ul { list-style: none; display: flex; gap: 2rem; }
-
-    nav.main-nav ul a {
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 4s linear infinite;
-      text-decoration: none;
-      font-size: 0.875rem;
-      letter-spacing: 0.03em;
-      transition: color 0.2s;
-    }
-
-    nav.main-nav ul a:hover { opacity: 0.8; }
-
-    .nav-cta {
-      background: var(--text);
-      color: var(--bg) !important;
-      padding: 0.45rem 1.1rem;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: opacity 0.2s !important;
-    }
-
-    .nav-cta:hover { opacity: 0.85; }
-
-    /* LANG TOGGLE */
-    .lang-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .lang-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      padding: 0.35rem 0.65rem;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      font-family: inherit;
-    }
-
-    .lang-btn.active {
-      background: var(--text);
-      color: var(--bg);
-    }
-
-    .lang-btn:not(.active):hover { background: #1a1a1a; }
-
-    /* HAMBURGER */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .menu-toggle span {
-      display: block;
-      width: 22px; height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all 0.25s;
-    }
-
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      position: fixed;
-      top: 57px; left: 0; right: 0;
-      background: #0d0d0d;
-      border-bottom: 1px solid var(--border);
-      z-index: 99;
-    }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu a {
-      display: block;
-      padding: 0.9rem 1.5rem;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      border-bottom: 1px solid var(--border);
-      transition: color 0.2s;
-    }
-
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--text); }
+    nav.main-nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.2rem 2.5rem; background:rgba(10,10,10,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-size:1.25rem; font-weight:800; letter-spacing:0.08em; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-size:0.9rem; color:var(--muted); transition:color .2s; }
+    .nav-links a:hover { color:var(--accent); }
+    .nav-links a.cta { color:var(--accent); background:var(--bg3); padding:.4rem .9rem; border-radius:6px; border:1px solid var(--border); }
+    .lang-switch { display:flex; gap:.5rem; font-size:0.85rem; color:var(--muted); user-select:none; }
+    .lang-switch span { cursor:pointer; transition:color .2s; }
+    .lang-switch span.active { color:var(--accent); font-weight:600; }
 
     /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 8rem 2rem 4rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 0.3rem 0.9rem;
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      margin-bottom: 2rem;
-    }
-
-    .badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #4ade80;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    h1 {
-      font-size: clamp(2.5rem, 7vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      max-width: 820px;
-      margin-bottom: 1.5rem;
-    }
-
-    h1 span {
-      background: linear-gradient(135deg, #fff 0%, #888 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 1.125rem;
-      max-width: 500px;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s;
-    }
-
-    .btn-primary { background: var(--text); color: var(--bg); }
-    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover { color: var(--text); border-color: #333; }
+    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:7rem 2.5rem 4rem; max-width:900px; }
+    .hero-badge { display:inline-flex; align-items:center; gap:.5rem; font-size:0.82rem; color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:.35rem .9rem; margin-bottom:2rem; width:fit-content; }
+    .hero-badge::before { content:''; width:8px; height:8px; border-radius:50%; background:#22c55e; display:block; }
+    .hero h1 { font-size:clamp(2.4rem,6vw,5rem); font-weight:800; letter-spacing:-0.04em; line-height:1.1; margin-bottom:1.5rem; }
+    .hero h1 span { color:var(--muted); }
+    .hero p { font-size:1.1rem; color:var(--muted); max-width:560px; margin-bottom:2.5rem; }
+    .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn { display:inline-block; padding:.75rem 1.6rem; border-radius:8px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:opacity .2s,transform .15s; }
+    .btn:hover { opacity:.85; transform:translateY(-1px); }
+    .btn-primary { background:var(--accent); color:var(--bg); }
+    .btn-outline { background:transparent; color:var(--accent); border:1px solid var(--border); }
 
     /* SECTIONS */
-    section {
-      padding: 6rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-sub {
-      color: var(--muted);
-      max-width: 480px;
-      margin-bottom: 3.5rem;
-    }
+    section { padding:6rem 2.5rem; max-width:1100px; margin:0 auto; }
+    .section-label { font-size:0.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; }
+    h2 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-0.03em; margin-bottom:1rem; }
+    .section-sub { color:var(--muted); font-size:1rem; max-width:520px; margin-bottom:3.5rem; }
 
     /* PAKETE */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
+    .warning-badge { display:inline-flex; align-items:center; gap:.4rem; font-size:0.82rem; color:#f59e0b; border:1px solid #f59e0b33; background:#f59e0b0a; border-radius:6px; padding:.4rem .8rem; margin-bottom:2.5rem; }
+    .paket-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:2rem; display:flex; flex-direction:column; position:relative; transition:border-color .2s; }
+    .paket-card:hover { border-color:#444; }
+    .paket-card.beliebt { border-color:var(--accent); }
+    .beliebt-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--accent); color:var(--bg); font-size:0.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:.25rem .8rem; border-radius:999px; }
+    .paket-name { font-size:0.9rem; font-weight:600; color:var(--muted); margin-bottom:.5rem; }
+    .paket-price { font-size:2rem; font-weight:800; letter-spacing:-0.03em; margin-bottom:.25rem; }
+    .paket-desc { font-size:0.88rem; color:var(--muted); margin-bottom:1.5rem; line-height:1.5; }
+    .paket-features { list-style:none; margin-bottom:1.5rem; flex:1; }
+    .paket-features li { font-size:0.9rem; color:#cccccc; padding:.35rem 0; border-bottom:1px solid var(--border); display:flex; gap:.6rem; align-items:center; }
+    .paket-features li::before { content:'✓'; color:#22c55e; font-weight:700; flex-shrink:0; }
+    .paket-hosting { font-size:0.82rem; color:var(--muted); margin-bottom:1.2rem; }
 
-    .pricing-card {
-      background: var(--surface);
-      padding: 2.25rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      transition: background 0.2s;
-    }
 
-    .pricing-card:hover { background: #161616; }
 
-    .pricing-card.featured {
-      background: #141414;
-      position: relative;
-    }
+    /* HOSTING TABLE */
+    .hosting-section { margin-top:4rem; }
+    .hosting-section h3 { font-size:1.3rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:.4rem; }
+    .hosting-section .hosting-sub { font-size:0.9rem; color:var(--muted); margin-bottom:2rem; }
+    .hosting-table { width:100%; border-radius:16px; overflow:hidden; border:1px solid var(--border); }
+    .ht-row { display:grid; grid-template-columns:2fr 1fr; border-bottom:1px solid var(--border); }
+    .ht-row:last-child { border-bottom:none; }
+    .ht-row.ht-head { background:var(--bg2); }
+    .ht-cell { padding:1rem 1.4rem; font-size:0.9rem; display:flex; align-items:center; }
+    .ht-head .ht-cell { font-size:0.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .ht-pages { color:var(--accent); font-weight:500; }
+    .ht-price { font-weight:700; color:var(--accent); font-size:1rem; }
+    .ht-price.highlighted { color:#a78bfa; }
+    .ht-note { color:var(--muted); font-size:0.82rem; }
+    .ht-row:nth-child(even):not(.ht-head) { background:rgba(255,255,255,0.02); }
+    .ht-row.ht-individuell { background:var(--bg2); }
 
-    .featured-tag {
-      position: absolute;
-      top: 1rem; right: 1rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--bg);
-      background: var(--text);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    .pricing-name {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .pricing-price {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-
-    .pricing-price sup {
-      font-size: 1rem;
-      font-weight: 500;
-      vertical-align: super;
-      margin-right: 2px;
-    }
-
-    .pricing-price .note {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: var(--muted);
-      margin-top: 0.4rem;
-      letter-spacing: 0;
-    }
-
-    .pricing-desc {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .pricing-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .pricing-features li {
-      font-size: 0.85rem;
-      color: var(--muted);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-
-    .pricing-features li::before {
-      content: '✓';
-      color: var(--text);
-      font-weight: 600;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .pricing-hosting {
-      font-size: 0.78rem;
-      color: #ffffff;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
+    /* VERGLEICH TABLE */
+    .vergleich-table { width:100%; border-radius:16px; overflow:visible; border:1px solid var(--border); }
+    .vt-row { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; }
+    .vt-row:not(.vt-header):not(.vt-cta-row) { border-top:1px solid var(--border); }
+    .vt-header { background:var(--bg2); padding-top:1.5rem; border-radius:16px 16px 0 0; }
+    .vt-feature-col { padding:1rem 1.2rem; font-size:0.88rem; color:var(--muted); display:flex; align-items:center; }
+    .vt-pkg-col { padding:1.2rem 1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.3rem; position:relative; }
+    .vt-highlighted { background:var(--bg3); border-left:1px solid var(--border); border-right:1px solid var(--border); }
+    .vt-price { font-size:1.4rem; font-weight:800; letter-spacing:-0.02em; color:var(--accent); }
+    .vt-price span { font-size:0.8rem; font-weight:400; color:var(--muted); }
+    .vt-hosting { font-size:0.75rem; color:var(--muted); }
+    .paket-name { font-size:0.82rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+    .vt-val { font-size:0.9rem; color:#cccccc; }
+    .vt-check { color:#22c55e; font-weight:700; font-size:1rem; }
+    .vt-cross { color:#444; }
+    .vt-cta-row { background:var(--bg2); padding:.5rem 0 1rem; border-top:1px solid var(--border); border-radius:0 0 16px 16px; }
+    .vt-cta-row .vt-pkg-col { padding:.8rem 1rem; }
+    @media (max-width:640px) {
+      .vt-row { grid-template-columns:1fr 1fr 1fr; }
+      .vt-feature-col { display:none; }
     }
 
     /* ABLAUF */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .step {
-      background: var(--surface);
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      transition: background 0.2s;
-    }
-
-    .step:hover { background: #161616; }
-
-    .step-num {
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .step-icon { font-size: 1.3rem; line-height: 1; }
-
-    .step h4 { font-size: 0.9rem; font-weight: 600; line-height: 1.3; }
-
-    .step p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
-
-    .step-note {
-      font-size: 0.75rem;
-      color: #aaaaaa;
-      padding-top: 0.5rem;
-      border-top: 1px solid var(--border);
-      margin-top: auto;
-    }
-
-    @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
+    .ablauf-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; }
+    .ablauf-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:1.8rem; }
+    .ablauf-num { font-size:0.78rem; font-weight:700; color:var(--muted); letter-spacing:.08em; margin-bottom:.75rem; }
+    .ablauf-icon { font-size:1.6rem; margin-bottom:.75rem; }
+    .ablauf-card h4 { font-size:1rem; font-weight:700; margin-bottom:.5rem; }
+    .ablauf-card p { font-size:0.88rem; color:var(--muted); line-height:1.55; }
+    .ablauf-note { font-size:0.82rem; color:#555; font-style:italic; margin-top:.5rem; }
 
     /* ÜBER UNS */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .about-text { background: var(--surface); padding: 3rem; }
-
-    .about-text p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-
-    .about-text p:last-child { margin-bottom: 0; }
-
-    .about-values {
-      background: var(--surface);
-      padding: 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.75rem;
-    }
-
-    .value-item h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .value-item p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .ueber-text { font-size:1.05rem; color:var(--muted); max-width:640px; margin-bottom:3rem; line-height:1.7; }
+    .values-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; }
+    .value-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:1.5rem; }
+    .value-card h4 { font-size:0.95rem; font-weight:700; margin-bottom:.4rem; }
+    .value-card p { font-size:0.85rem; color:var(--muted); line-height:1.55; }
 
     /* KONTAKT */
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
+    #kontakt { max-width:1100px; }
+    .kontakt-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; }
+    @media (max-width:700px) { .kontakt-grid { grid-template-columns:1fr; gap:2rem; } }
+    .kontakt-info h3 { font-size:1.2rem; font-weight:700; margin-bottom:.75rem; }
+    .kontakt-info p { font-size:0.9rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.6; }
+    .kontakt-mail { display:inline-flex; align-items:center; gap:.5rem; font-size:0.9rem; color:var(--accent); border:1px solid var(--border); border-radius:8px; padding:.6rem 1rem; }
+    form { display:flex; flex-direction:column; gap:1rem; }
+    form label { font-size:0.82rem; color:var(--muted); margin-bottom:.25rem; display:block; }
+    form input, form select, form textarea { width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:8px; color:var(--accent); font-size:0.92rem; padding:.7rem 1rem; outline:none; font-family:inherit; transition:border-color .2s; }
+    form input:focus, form select:focus, form textarea:focus { border-color:#555; }
+    form select option { background:var(--bg3); }
+    form textarea { resize:vertical; min-height:120px; }
+    .submit-btn { background:var(--accent); color:var(--bg); border:none; border-radius:8px; padding:.8rem 1.4rem; font-size:0.95rem; font-weight:700; cursor:pointer; transition:opacity .2s; text-align:center; width:100%; }
+    .submit-btn:hover { opacity:.85; }
 
-    .contact-info {
-      background: var(--surface);
-      padding: 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .contact-info h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-
-    .contact-info p {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.7;
-      margin-bottom: 2rem;
-    }
-
-    .contact-email {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.25rem;
-      transition: border-color 0.2s;
-    }
-
-    .contact-email:hover { border-color: var(--text); }
-
-    .contact-form {
-      background: #0e0e0e;
-      padding: 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-
-    .form-group label {
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.9rem;
-      padding: 0.7rem 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-      width: 100%;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus { border-color: #444; }
-
-    .form-group select option { background: #111; }
-    .form-group textarea { resize: vertical; min-height: 100px; }
+    /* LEGAL */
+    .legal-section { background:var(--bg2); border-top:1px solid var(--border); padding:4rem 2.5rem; }
+    .legal-inner { max-width:800px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
+    @media (max-width:600px) { .legal-inner { grid-template-columns:1fr; } }
+    .legal-section h2 { font-size:1.3rem; margin-bottom:1rem; }
+    .legal-section p { font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:.5rem; }
+    .legal-section strong { color:#aaa; }
 
     /* FOOTER */
-    footer {
-      padding: 2rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      border-top: 1px solid var(--border);
-      max-width: 100%;
+    footer { border-top:1px solid var(--border); padding:1.5rem 2.5rem; display:flex; flex-direction:column; font-size:0.82rem; color:var(--muted); }
+    .footer-nav a { margin-left:1.5rem; color:var(--muted); }
+    .footer-nav a:hover { color:var(--accent); }
+
+    /* GRADIENT ANIMATION */
+    .grad { background: linear-gradient(90deg, #a78bfa, #60a5fa, #fbbf24, #f472b6, #a78bfa); background-size:300% 100%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:gradshift 4s linear infinite; display:inline; }
+    @keyframes gradshift { 0% { background-position:0% 50%; } 100% { background-position:300% 50%; } }
+
+    @media (max-width:768px) {
+      nav.main-nav { padding:1rem 1.2rem; }
+      .nav-links { display:none; }
+      .hero { padding:5rem 1.2rem 3rem; }
+      section { padding:4rem 1.2rem; }
     }
 
-    footer span { font-size: 0.8rem; color: var(--muted); }
-    footer nav ul { list-style: none; display: flex; gap: 1.25rem; }
+    /* HERO CANVAS */
+    #hero-canvas {
+      position: absolute; top:0; left:0; width:100%; height:100%;
+      z-index: 0; pointer-events: none; opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .hero { position: relative; }
+    .hero > *:not(#hero-canvas) { position: relative; z-index: 1; }
 
-    /* TABLET */
-    @media (max-width: 900px) {
-      section { padding: 4rem 1.5rem; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; }
-      .contact-wrap { grid-template-columns: 1fr; }
+
+
+    /* INTRO */
+    #intro {
+      position: fixed; top:0; left:0; right:0; bottom:0;
+      background: #000; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
     }
 
-    /* MOBILE */
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.25rem; }
-      nav ul { display: none; }
-      .menu-toggle { display: flex; }
-
-      .hero { padding: 7rem 1.25rem 3rem; }
-      .hero p { font-size: 1rem; }
-      .hero-actions { flex-direction: column; width: 100%; }
-      .btn { justify-content: center; padding: 0.85rem 1.5rem; font-size: 0.95rem; }
-
-      section { padding: 3.5rem 1.25rem; }
-      .about-text, .about-values, .contact-info, .contact-form { padding: 2rem 1.5rem; }
-
-      footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.25rem; }
-      footer nav ul { flex-wrap: wrap; gap: 1rem; }
+    /* GLOBAL VIDEO BACKGROUND */
+    #site-video-bg {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      z-index: -1; overflow: hidden;
+    }
+    #site-video-bg video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    #site-video-bg::after {
+      content: '';
+      position: absolute; top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.55);
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="main-nav">
-    <a href="#" class="nav-brand">
-      <svg width="42" height="42" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="32" height="32" rx="8" fill="#a0a0a0"/>
-        <rect x="8" y="8" width="7" height="16" rx="2" fill="#080808"/>
-        <rect x="17" y="8" width="7" height="9" rx="2" fill="#080808"/>
-        <rect x="17" y="19" width="7" height="5" rx="2" fill="#080808"/>
-      </svg>
-      <span class="nav-brand-text">Blacqout</span>
-    </a>
-    <ul>
-      <li><a href="#pakete" data-i18n="nav_packages">Pakete</a></li>
-      <li><a href="#ablauf" data-i18n="nav_process">Ablauf</a></li>
-      <li><a href="#ueber-uns" data-i18n="nav_about">Über uns</a></li>
-      <li><a href="#kontakt" class="nav-cta" data-i18n="nav_contact">Anfragen</a></li>
-    </ul>
-    <div class="lang-toggle">
-      <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-    </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#pakete" onclick="closeMobile()" data-i18n="nav_packages">Pakete</a>
-    <a href="#ablauf" onclick="closeMobile()" data-i18n="nav_process">Ablauf</a>
-    <a href="#ueber-uns" onclick="closeMobile()" data-i18n="nav_about">Über uns</a>
-    <a href="#kontakt" onclick="closeMobile()" data-i18n="nav_contact">Anfragen</a>
+    <div id="intro-line" style="height:1px;background:linear-gradient(90deg,transparent,#ffffff,transparent);width:0;margin:1.2rem auto;transition:width 0.7s ease;"></div>
+    <div id="intro-tag" style="font-size:0.85rem;color:#555555;letter-spacing:0.25em;text-transform:uppercase;opacity:0;transition:opacity 0.6s ease;">Websites die wirken.</div>
   </div>
+</div>
 
-  <!-- INTRO -->
-  <div id="intro" style="
-    position: fixed; inset: 0; z-index: 9999;
-    background: #080808;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 1.5rem;
-  ">
-    <div id="intro-logo" style="opacity:0; transform: scale(0.8); transition: opacity 0.6s ease, transform 0.6s ease;">
-      <svg width="56" height="56" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
-        style="filter: drop-shadow(0 0 12px #f59e0b80);">
-        <rect width="32" height="32" rx="8" fill="#a0a0a0"/>
-        <rect x="8" y="8" width="7" height="16" rx="2" fill="#080808"/>
-        <rect x="17" y="8" width="7" height="9" rx="2" fill="#080808"/>
-        <rect x="17" y="19" width="7" height="5" rx="2" fill="#080808"/>
-      </svg>
-    </div>
-    <div id="intro-text" style="
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: 1.5rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444);
-      background-size: 200% 100%;
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      animation: shimmer 2s linear infinite;
-      opacity: 0; transform: translateY(10px);
-      transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
-    ">Blacqout</div>
-    <div id="intro-bar" style="
-      width: 0px; height: 2px;
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa);
-      border-radius: 2px;
-      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
-      box-shadow: 0 0 8px #f59e0b60;
-    "></div>
+<div id="site-video-bg">
+  <video autoplay muted loop playsinline>
+    <source src="bg-video-loop.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div id="intro" style="position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:#000;z-index:9999;overflow:hidden;transition:opacity 0.8s ease;">
+  <video id="intro-video" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover;">
+    <source src="intro-video.mp4" type="video/mp4">
+  </video>
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;">
+    <span style="font-size:clamp(3rem,10vw,7rem);font-weight:800;letter-spacing:0.15em;color:#ffffff;text-shadow:0 0 60px rgba(0,0,0,0.8);">BLACQOUT</span>
   </div>
+</div>
+<nav class="main-nav">
+  <a href="#" class="nav-logo">BLACQOUT</a>
+  <ul class="nav-links">
+    <li><a href="#pakete" data-i18n="nav.pakete">Pakete</a></li>
+    <li><a href="#ablauf" data-i18n="nav.ablauf">Ablauf</a></li>
+    <li><a href="#ueber-uns" data-i18n="nav.ueber">Über uns</a></li>
+    <li><a href="#kontakt" class="cta" data-i18n="nav.anfragen">Anfragen</a></li>
+  </ul>
+  <div class="lang-switch">
+    <span class="active" onclick="setLang('de')">DE</span>
+    <span style="color:#333">|</span>
+    <span onclick="setLang('en')">EN</span>
+  </div>
+</nav>
 
-  <script>
-    // Intro animation
-    window.addEventListener('load', () => {
-      const intro     = document.getElementById('intro');
-      const logo      = document.getElementById('intro-logo');
-      const text      = document.getElementById('intro-text');
-      const bar       = document.getElementById('intro-bar');
+<div class="hero">
+  <div class="hero-badge" data-i18n="hero.badge">Antwort innerhalb 24h</div>
+  <h1><span class="grad" data-i18n="hero.h1a">Deine</span> <span data-i18n="hero.h1b">Website.</span><br/><span data-i18n="hero.h1c">Professionell gemacht.</span><br/><span data-i18n="hero.h1d">Immer online.</span></h1>
+  <p data-i18n="hero.p">Wir bauen deine Website — klar, schnell und ohne versteckte Kosten. Du kümmerst dich um dein Geschäft, wir um deine Website.</p>
+  <div class="hero-btns">
+    <a href="#pakete" class="btn btn-primary" data-i18n="hero.btn1">Pakete ansehen →</a>
+    <a href="#kontakt" class="btn btn-outline" data-i18n="hero.btn2">Kostenlos anfragen</a>
+  </div>
+</div>
 
-      setTimeout(() => {
-        logo.style.opacity = '1';
-        logo.style.transform = 'scale(1)';
-        text.style.opacity = '1';
-        text.style.transform = 'translateY(0)';
-        bar.style.width = '120px';
-      }, 100);
-
-      setTimeout(() => {
-        intro.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-        intro.style.opacity = '0';
-        intro.style.transform = 'scale(1.04)';
-      }, 2000);
-
-      setTimeout(() => {
-        intro.style.display = 'none';
-        window.scrollTo(0, 0);
-      }, 2700);
-    });
-
-    history.scrollRestoration = 'manual';
-
-    const toggle = document.getElementById('menuToggle');
-    const menu = document.getElementById('mobileMenu');
-    toggle.addEventListener('click', () => menu.classList.toggle('open'));
-    function closeMobile() { menu.classList.remove('open'); }
-
-    async function sendForm(e) {
-      e.preventDefault();
-      const btn     = document.getElementById('f-submit');
-      const status  = document.getElementById('f-status');
-      const name    = document.getElementById('f-name').value.trim();
-      const email   = document.getElementById('f-email').value.trim();
-      const paket   = document.getElementById('f-paket').value;
-      const message = document.getElementById('f-message').value.trim();
-
-      if (!name || !email || !message) {
-        status.style.display = 'block';
-        status.style.color = '#f87171';
-        status.textContent = 'Bitte Name, E-Mail und Nachricht ausfüllen.';
-        return;
-      }
-
-      btn.textContent = 'Wird gesendet…';
-      btn.disabled = true;
-
-      try {
-        const res = await fetch('https://formspree.io/f/mzdqpnpv', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, paket, message })
-        });
-
-        status.style.display = 'block';
-        if (res.ok) {
-          status.style.color = '#4ade80';
-          status.textContent = 'Nachricht gesendet! Wir melden uns bald bei dir.';
-          document.getElementById('f-name').value = '';
-          document.getElementById('f-email').value = '';
-          document.getElementById('f-paket').value = '';
-          document.getElementById('f-message').value = '';
-          btn.textContent = 'Gesendet ✓';
-        } else {
-          throw new Error();
-        }
-      } catch {
-        status.style.color = '#f87171';
-        status.textContent = 'Fehler beim Senden. Schreib uns direkt: blacqout.anfragen@gmx.de';
-        btn.textContent = 'Anfrage senden →';
-        btn.disabled = false;
-      }
-    }
-  </script>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="badge">
-      <span class="badge-dot"></span>
-      <span data-i18n="badge">Antwort innerhalb 24h</span>
+<section id="pakete">
+  <div class="section-label" data-i18n="pakete.label">Pakete</div>
+  <h2><span class="grad" data-i18n="pakete.h2a">Klare</span> <span data-i18n="pakete.h2b">Preise. Kein Kleingedrucktes.</span></h2>
+  <p class="section-sub" data-i18n="pakete.sub">Du zahlst einmal für die Erstellung und dann monatlich fürs Hosting. Beides ist in jedem Paket dabei.</p>
+  <div class="warning-badge" data-i18n="pakete.warning">⚠ 3D-Animationen werden nicht angeboten.</div>
+  <div class="vergleich-table">
+    <!-- Header -->
+    <div class="vt-row vt-header">
+      <div class="vt-feature-col"></div>
+      <div class="vt-pkg-col">
+        <div class="paket-name" data-i18n="starter.name">Starter</div>
+        <div class="vt-price">€599 <span data-i18n="starter.einmalig">einmalig</span></div>
+        <div class="vt-hosting" data-i18n="starter.hosting">+ 50 €/Mo. Hosting</div>
+      </div>
+      <div class="vt-pkg-col vt-highlighted">
+        <div class="beliebt-badge" data-i18n="badge.beliebt">Beliebt</div>
+        <div class="paket-name" data-i18n="unternehmen.name">Unternehmen</div>
+        <div class="vt-price" data-i18n="unternehmen.price">Auf Anfrage</div>
+        <div class="vt-hosting" data-i18n="unternehmen.hosting">+ 50 €/Mo. · +10 € pro Seite</div>
+      </div>
+      <div class="vt-pkg-col">
+        <div class="paket-name" data-i18n="individuell.name">Individuell</div>
+        <div class="vt-price" data-i18n="individuell.price">Nach Absprache</div>
+        <div class="vt-hosting" data-i18n="individuell.hosting">+ Hosting nach Umfang</div>
+      </div>
     </div>
-    <h1 data-i18n="hero_h1">Deine Website.<br><span>Professionell gemacht.</span><br>Immer online.</h1>
-    <p data-i18n="hero_p">Wir bauen deine Website — klar, schnell und ohne versteckte Kosten. Du kümmerst dich um dein Geschäft, wir um deine Website.</p>
-    <div class="hero-actions">
-      <a href="#pakete" class="btn btn-primary" data-i18n="hero_btn1">Pakete ansehen →</a>
-      <a href="#kontakt" class="btn btn-secondary" data-i18n="hero_btn2">Kostenlos anfragen</a>
+
+    <!-- Features -->
+    <div class="vt-row">
+      <div class="vt-feature-col" data-i18n="feat.seiten">Anzahl Seiten</div>
+      <div class="vt-pkg-col vt-val" data-i18n="feat.seiten.s">1</div>
+      <div class="vt-pkg-col vt-val vt-highlighted" data-i18n="feat.seiten.u">Mehrere</div>
+      <div class="vt-pkg-col vt-val" data-i18n="feat.seiten.i">Unbegrenzt</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-feature-col" data-i18n="feat.design">Design</div>
+      <div class="vt-pkg-col vt-val" data-i18n="feat.design.s">Standard</div>
+      <div class="vt-pkg-col vt-val vt-highlighted" data-i18n="feat.design.u">Individuell</div>
+      <div class="vt-pkg-col vt-val" data-i18n="feat.design.i">Vollständig maßgeschneidert</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-feature-col" data-i18n="feat.mobil">Mobil optimiert</div>
+      <div class="vt-pkg-col vt-val vt-check">✓</div>
+      <div class="vt-pkg-col vt-val vt-check vt-highlighted">✓</div>
+      <div class="vt-pkg-col vt-val vt-check">✓</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-feature-col" data-i18n="feat.formular">Kontaktformular</div>
+      <div class="vt-pkg-col vt-val vt-check">✓</div>
+      <div class="vt-pkg-col vt-val vt-check vt-highlighted">✓</div>
+      <div class="vt-pkg-col vt-val vt-check">✓</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-feature-col" data-i18n="feat.beratung">Persönliche Beratung</div>
+      <div class="vt-pkg-col vt-val vt-cross">—</div>
+      <div class="vt-pkg-col vt-val vt-check vt-highlighted">✓</div>
+      <div class="vt-pkg-col vt-val vt-check">✓</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-feature-col" data-i18n="feat.sonder">Sonderfunktionen</div>
+      <div class="vt-pkg-col vt-val vt-cross">—</div>
+      <div class="vt-pkg-col vt-val vt-cross vt-highlighted">—</div>
+      <div class="vt-pkg-col vt-val vt-check">✓</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-feature-col" data-i18n="feat.support">Prioritäts-Support</div>
+      <div class="vt-pkg-col vt-val vt-cross">—</div>
+      <div class="vt-pkg-col vt-val vt-cross vt-highlighted">—</div>
+      <div class="vt-pkg-col vt-val vt-check">✓</div>
+    </div>
+
+    <!-- CTA row -->
+    <div class="vt-row vt-cta-row">
+      <div class="vt-feature-col"></div>
+      <div class="vt-pkg-col">
+        <a href="#kontakt" class="btn btn-outline" style="text-align:center;width:100%;" data-i18n="cta.anfragen">Jetzt anfragen</a>
+      </div>
+      <div class="vt-pkg-col vt-highlighted">
+        <a href="#kontakt" class="btn btn-primary" style="text-align:center;width:100%;" data-i18n="cta.anfragen">Jetzt anfragen</a>
+      </div>
+      <div class="vt-pkg-col">
+        <a href="#kontakt" class="btn btn-outline" style="text-align:center;width:100%;" data-i18n="cta.anfragen">Jetzt anfragen</a>
+      </div>
     </div>
   </div>
 
-  <!-- PAKETE -->
-  <section id="pakete">
-    <p class="section-label" data-i18n="nav_packages">Pakete</p>
-    <h2 class="section-title" data-i18n="pricing_title">Klare Preise. Kein Kleingedrucktes.</h2>
-    <p class="section-sub" data-i18n="pricing_sub">Du zahlst einmal für die Erstellung und dann monatlich fürs Hosting. Beides ist in jedem Paket dabei.</p>
-    <p style="font-size:0.78rem;color:#888;margin-top:-2.5rem;margin-bottom:3rem;" data-i18n="pricing_note">⚠ 3D-Animationen werden nicht angeboten.</p>
-
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <p class="pricing-name">Starter</p>
-        <div class="pricing-price">
-          <sup>€</sup>599
-          <span class="note" data-i18n="starter_note">einmalig (Erstellung)</span>
-        </div>
-        <p class="pricing-desc" data-i18n="starter_desc">Ideal für Selbstständige und kleine Unternehmen, die online einen guten ersten Eindruck machen wollen.</p>
-        <ul class="pricing-features">
-          <li data-i18n="starter_f1">1 Seite</li>
-          <li data-i18n="starter_f2">Mobil & Laptop optimiert</li>
-          <li data-i18n="starter_f3">Kontaktformular</li>
-        </ul>
-        <div class="pricing-hosting" data-i18n="starter_hosting">+ 50 €/Monat Hosting</div>
-        <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;" data-i18n="btn_inquire">Jetzt anfragen</a>
+  <div class="hosting-section">
+    <h3 data-i18n="hosting.title">Was zahlst du monatlich fürs Hosting?</h3>
+    <p class="hosting-sub" data-i18n="hosting.sub">Einmalige Erstellungskosten nicht inbegriffen — nur die monatliche Hosting-Gebühr.</p>
+    <div class="hosting-table">
+      <div class="ht-row ht-head">
+        <div class="ht-cell" data-i18n="hosting.col.seiten">Anzahl Seiten</div>
+        <div class="ht-cell" data-i18n="hosting.col.monat">Pro Monat</div>
       </div>
-
-      <div class="pricing-card featured">
-        <span class="featured-tag" data-i18n="popular">Beliebt</span>
-        <p class="pricing-name" data-i18n="business_name">Unternehmen</p>
-        <div class="pricing-price">
-          <span data-i18n="business_price">Auf Anfrage</span>
-          <span class="note" data-i18n="business_note">individuell kalkuliert</span>
-        </div>
-        <p class="pricing-desc" data-i18n="business_desc">Du brauchst mehr als eine Seite? Kein Problem — mehrere Unterseiten, mehr Inhalt, mehr Wirkung.</p>
-        <ul class="pricing-features">
-          <li data-i18n="business_f1">Mehrere Seiten</li>
-          <li data-i18n="business_f2">Individuelles Design</li>
-          <li data-i18n="business_f3">Mobil & Laptop optimiert</li>
-          <li data-i18n="business_f4">Kontaktformular & mehr</li>
-          <li data-i18n="business_f5">Persönliche Beratung</li>
-        </ul>
-        <div class="pricing-hosting" data-i18n="business_hosting">+ 50 €/Monat Hosting · +10 € pro Unterseite</div>
-        <a href="#kontakt" class="btn btn-primary" style="margin-top:0.5rem;" data-i18n="btn_inquire">Jetzt anfragen</a>
+      <div class="ht-row">
+        <div class="ht-cell ht-pages" data-i18n="hosting.r1.seiten">1 Seite</div>
+        <div class="ht-cell ht-price">50 €</div>
       </div>
-
-      <div class="pricing-card">
-        <p class="pricing-name" data-i18n="custom_name">Individuell</p>
-        <div class="pricing-price">
-          <span data-i18n="custom_price">Nach Absprache</span>
-          <span class="note" data-i18n="custom_note">100 % maßgeschneidert</span>
-        </div>
-        <p class="pricing-desc" data-i18n="custom_desc">Du hast besondere Wünsche oder ein größeres Projekt? Wir setzen genau das um, was du brauchst.</p>
-        <ul class="pricing-features">
-          <li data-i18n="custom_f1">Unbegrenzte Seiten</li>
-          <li data-i18n="custom_f2">Vollständig angepasstes Design</li>
-          <li data-i18n="custom_f3">Sonderfunktionen möglich</li>
-          <li data-i18n="custom_f4">Persönlicher Ansprechpartner</li>
-          <li data-i18n="custom_f5">Prioritäts-Support</li>
-        </ul>
-        <div class="pricing-hosting" data-i18n="custom_hosting">+ Hosting nach Projektumfang</div>
-        <a href="#kontakt" class="btn btn-secondary" style="margin-top:0.5rem;" data-i18n="btn_inquire">Jetzt anfragen</a>
+      <div class="ht-row">
+        <div class="ht-cell ht-pages" data-i18n="hosting.r2.seiten">2 Seiten</div>
+        <div class="ht-cell ht-price">60 €</div>
+      </div>
+      <div class="ht-row">
+        <div class="ht-cell ht-pages" data-i18n="hosting.r3.seiten">3 Seiten</div>
+        <div class="ht-cell ht-price">70 €</div>
+      </div>
+      <div class="ht-row">
+        <div class="ht-cell ht-pages" data-i18n="hosting.r4.seiten">5 Seiten</div>
+        <div class="ht-cell ht-price">90 €</div>
+      </div>
+      <div class="ht-row">
+        <div class="ht-cell ht-pages" data-i18n="hosting.r5.seiten">10 Seiten</div>
+        <div class="ht-cell ht-price highlighted">160 €</div>
+      </div>
+      <div class="ht-row ht-individuell">
+        <div class="ht-cell ht-pages" data-i18n="hosting.r6.seiten">Individualprojekt</div>
+        <div class="ht-cell ht-price" style="font-size:0.9rem;" data-i18n="hosting.r6.price">Individuell</div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ABLAUF -->
-  <section id="ablauf">
-    <p class="section-label" data-i18n="nav_process">Ablauf</p>
-    <h2 class="section-title" data-i18n="process_title">So läuft es ab.</h2>
-    <p class="section-sub" data-i18n="process_sub">Von deiner ersten Nachricht bis zur fertigen Website — kein Chaos, keine Überraschungen.</p>
+</section>
 
-    <div class="steps">
-      <div class="step">
-        <span class="step-num">01</span>
-        <span class="step-icon">✉</span>
-        <h4 data-i18n="step1_title">Du fragst an</h4>
-        <p data-i18n="step1_p">Schreib uns kurz über das Formular oder per E-Mail — sag uns einfach, was du dir vorstellst.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">02</span>
-        <span class="step-icon">💬</span>
-        <h4 data-i18n="step2_title">Wir besprechen alles</h4>
-        <p data-i18n="step2_p">Wir melden uns persönlich, besprechen was du willst und sagen dir direkt, ob und wie wir das machen können.</p>
-        <span class="step-note" data-i18n="step2_note">Kein passendes Paket? Wir sagen es dir ehrlich.</span>
-      </div>
-      <div class="step">
-        <span class="step-num">03</span>
-        <span class="step-icon">🖥</span>
-        <h4 data-i18n="step3_title">Vorschau</h4>
-        <p data-i18n="step3_p">Wir bauen deine Website und schicken dir eine Vorschau. Du sagst ob alles passt — erst dann geht sie live.</p>
-        <span class="step-note" data-i18n="step3_note">Erst wenn du zufrieden bist, geht es weiter.</span>
-      </div>
-      <div class="step">
-        <span class="step-num">04</span>
-        <span class="step-icon">🏦</span>
-        <h4 data-i18n="step4_title">Zahlung in zwei Schritten</h4>
-        <p data-i18n="step4_p">Wenn du uns den Auftrag gibst, zahlst du 30 % als Anzahlung. Die restlichen 70 % zahlst du erst, wenn die Website fertig und abgenommen ist.</p>
-        <span class="step-note" data-i18n="step4_note">Banküberweisung. Keine weiteren Zahlungsmittel.</span>
-      </div>
+<section id="ablauf">
+  <div class="section-label" data-i18n="ablauf.label">Ablauf</div>
+  <h2><span class="grad" data-i18n="ablauf.h2a">So</span> <span data-i18n="ablauf.h2b">läuft es ab.</span></h2>
+  <p class="section-sub" data-i18n="ablauf.sub">Von deiner ersten Nachricht bis zur fertigen Website — kein Chaos, keine Überraschungen.</p>
+  <div class="ablauf-grid">
+    <div class="ablauf-card">
+      <div class="ablauf-num">01</div>
+      <div class="ablauf-icon">✉</div>
+      <h4 data-i18n="ablauf.1.title">Du fragst an</h4>
+      <p data-i18n="ablauf.1.text">Schreib uns kurz über das Formular oder per E-Mail — sag uns einfach, was du dir vorstellst.</p>
     </div>
-  </section>
-
-  <!-- ÜBER UNS -->
-  <section id="ueber-uns">
-    <p class="section-label" data-i18n="nav_about">Über uns</p>
-    <h2 class="section-title" data-i18n="about_title">Wir bauen Websites,<br>die funktionieren.</h2>
-
-    <div class="about-grid">
-      <div class="about-text">
-        <p><span style="background: linear-gradient(90deg, #ef4444, #f59e0b, #a78bfa, #ef4444); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; font-weight: 700;">Blacqout</span> <span data-i18n="about_p1">baut Websites — fair, transparent und ohne versteckte Kosten.</span></p>
-        <p data-i18n="about_p2">Eine gute Website sollte kein Luxus sein. Deshalb haben wir feste Pakete — du weißt von Anfang an, was du zahlst.</p>
-        <p data-i18n="about_p3">Du hast von Anfang bis Ende eine direkte Ansprechperson. Kein Callcenter, kein Hin-und-Her — einfach direkt und schnell.</p>
-      </div>
-      <div class="about-values">
-        <div class="value-item">
-          <h4 data-i18n="val1_title">Transparenz</h4>
-          <p data-i18n="val1_p">Feste Preise, kein Kleingedrucktes. Du weißt immer, wofür du zahlst.</p>
-        </div>
-        <div class="value-item">
-          <h4 data-i18n="val2_title">Qualität</h4>
-          <p data-i18n="val2_p">Jede Website wird einzeln gestaltet — kein Baukastensystem, keine 0815-Vorlagen.</p>
-        </div>
-        <div class="value-item">
-          <h4 data-i18n="val3_title">Verlässlichkeit</h4>
-          <p data-i18n="val3_p">Das Hosting ist dabei. Deine Website läuft — Punkt.</p>
-        </div>
-        <div class="value-item">
-          <h4 data-i18n="val4_title">Einfachheit</h4>
-          <p data-i18n="val4_p">Du kümmerst dich um dein Business. Wir kümmern uns um deinen Webauftritt.</p>
-        </div>
-      </div>
+    <div class="ablauf-card">
+      <div class="ablauf-num">02</div>
+      <div class="ablauf-icon">💬</div>
+      <h4 data-i18n="ablauf.2.title">Wir besprechen alles</h4>
+      <p data-i18n="ablauf.2.text">Wir melden uns persönlich, besprechen was du willst und sagen dir direkt, ob und wie wir das machen können.</p>
+      <p class="ablauf-note" data-i18n="ablauf.2.note">Kein passendes Paket? Wir sagen es dir ehrlich.</p>
     </div>
-  </section>
-
-  <!-- KONTAKT -->
-  <section id="kontakt">
-    <p class="section-label" data-i18n="nav_contact">Kontakt</p>
-    <h2 class="section-title" data-i18n="contact_title">Projekt starten.</h2>
-    <p class="section-sub" data-i18n="contact_sub">Schreib uns — wir melden uns innerhalb von 24 Stunden bei dir.</p>
-
-    <div class="contact-wrap">
-      <div class="contact-info">
-        <div>
-          <h3 data-i18n="contact_h3">Lass uns reden.</h3>
-          <p data-i18n="contact_p">Du hast eine Idee oder weißt noch nicht genau, was du willst — kein Problem. Wir besprechen das zusammen und finden was Passendes.</p>
-          <a href="mailto:blacqout.anfragen@gmx.de" class="contact-email">
-            ✉ blacqout.anfragen@gmx.de
-          </a>
-        </div>
-      </div>
-      <div class="contact-form">
-        <div class="form-group">
-          <label data-i18n="form_name">Name</label>
-          <input type="text" id="f-name" data-i18n-placeholder="form_name_ph" placeholder="Dein Name" />
-        </div>
-        <div class="form-group">
-          <label>E-Mail</label>
-          <input type="email" id="f-email" data-i18n-placeholder="form_email_ph" placeholder="deine@email.de" />
-        </div>
-        <div class="form-group">
-          <label data-i18n="form_package">Paket</label>
-          <select id="f-paket">
-            <option value="" data-i18n="form_package_ph">Paket auswählen</option>
-            <option>Starter — 599 €</option>
-            <option data-i18n="opt_business">Unternehmen — Auf Anfrage</option>
-            <option data-i18n="opt_custom">Individuell — Nach Absprache</option>
-            <option data-i18n="opt_unsure">Noch unsicher</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label data-i18n="form_message">Nachricht</label>
-          <textarea id="f-message" data-i18n-placeholder="form_message_ph" placeholder="Erzähl uns von deinem Projekt…"></textarea>
-        </div>
-        <button class="btn btn-primary" id="f-submit" onclick="sendForm(event)" data-i18n="form_submit">Anfrage senden →</button>
-        <p id="f-status" style="font-size:0.82rem;color:var(--muted);display:none;"></p>
-        <p style="font-size:0.75rem;color:#333;margin-top:0.25rem;"><span data-i18n="form_or">Oder direkt:</span> <a href="mailto:blacqout.anfragen@gmx.de" style="color:#444;">blacqout.anfragen@gmx.de</a></p>
-      </div>
+    <div class="ablauf-card">
+      <div class="ablauf-num">03</div>
+      <div class="ablauf-icon">🖥</div>
+      <h4 data-i18n="ablauf.3.title">Vorschau</h4>
+      <p data-i18n="ablauf.3.text">Wir bauen deine Website und schicken dir eine Vorschau. Du sagst ob alles passt — erst dann geht sie live.</p>
+      <p class="ablauf-note" data-i18n="ablauf.3.note">Erst wenn du zufrieden bist, geht es weiter.</p>
     </div>
-  </section>
-
-  <!-- IMPRESSUM -->
-  <section id="impressum" style="border-top:1px solid var(--border);">
-    <p class="section-label" data-i18n="legal_label">Rechtliches</p>
-    <h2 class="section-title">Impressum</h2>
-    <div style="color:var(--muted);font-size:0.9rem;line-height:2;max-width:560px;">
-      <p><strong style="color:var(--text)">Angaben gemäß § 5 TMG</strong></p>
-      <p>Kenny Finn Kocjan<br>Resi Weglein Gasse 9<br>89077 Ulm<br>Deutschland</p>
-      <p><strong style="color:var(--text)">Kontakt</strong></p>
-      <p>E-Mail: <a href="mailto:blacqout.anfragen@gmx.de" style="color:var(--muted);">blacqout.anfragen@gmx.de</a></p>
-      <p><strong style="color:var(--text)">Steuernummer</strong></p>
-      <p style="color:#444;">Wird nach Gewerbeanmeldung ergänzt.</p>
+    <div class="ablauf-card">
+      <div class="ablauf-num">04</div>
+      <div class="ablauf-icon">🏦</div>
+      <h4 data-i18n="ablauf.4.title">Zahlung in zwei Schritten</h4>
+      <p data-i18n="ablauf.4.text">Wenn du uns den Auftrag gibst, zahlst du 30 % als Anzahlung. Die restlichen 70 % zahlst du erst, wenn die Website fertig und abgenommen ist.</p>
+      <p class="ablauf-note" data-i18n="ablauf.4.note">Banküberweisung. Keine weiteren Zahlungsmittel.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- DATENSCHUTZ -->
-  <section id="datenschutz" style="border-top:1px solid var(--border);">
-    <h2 class="section-title">Datenschutzerklärung</h2>
-    <div style="color:var(--muted);font-size:0.9rem;line-height:2;max-width:660px;display:flex;flex-direction:column;gap:1.5rem;">
+<section id="ueber-uns">
+  <div class="section-label" data-i18n="ueber.label">Über uns</div>
+  <h2><span class="grad" data-i18n="ueber.h2a">Wir</span> <span data-i18n="ueber.h2b">bauen Websites,<br/>die funktionieren.</span></h2>
+  <p class="ueber-text" data-i18n="ueber.text">Wir haben Blacqout gestartet, weil wir gesehen haben wie viele Leute mit überteuerten Agenturen, versteckten Kosten und endlosen Abstimmungsschleifen kämpfen — und am Ende eine Website bekommen, die sie selbst nicht verstehen.<br/><br/>Das machen wir anders. Kein Team von 20 Leuten im Hintergrund, kein Callcenter, keine Überraschungen auf der Rechnung. Du redest direkt mit uns — und wir liefern.</p>
+  <div class="values-grid">
+    <div class="value-card"><h4 data-i18n="val.1.title">Transparenz</h4><p data-i18n="val.1.text">Feste Preise, kein Kleingedrucktes. Du weißt immer, wofür du zahlst.</p></div>
+    <div class="value-card"><h4 data-i18n="val.2.title">Qualität</h4><p data-i18n="val.2.text">Jede Website wird einzeln gestaltet — kein Baukastensystem, keine 0815-Vorlagen.</p></div>
+    <div class="value-card"><h4 data-i18n="val.3.title">Verlässlichkeit</h4><p data-i18n="val.3.text">Das Hosting ist dabei. Deine Website läuft — Punkt.</p></div>
+    <div class="value-card"><h4 data-i18n="val.4.title">Einfachheit</h4><p data-i18n="val.4.text">Du kümmerst dich um dein Business. Wir kümmern uns um deinen Webauftritt.</p></div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="section-label" data-i18n="kontakt.label">Kontakt</div>
+  <h2><span class="grad" data-i18n="kontakt.h2a">Projekt</span> <span data-i18n="kontakt.h2b">starten.</span></h2>
+  <p class="section-sub" data-i18n="kontakt.sub">Schreib uns — wir melden uns innerhalb von 24 Stunden bei dir.</p>
+  <div class="kontakt-grid">
+    <div class="kontakt-info">
+      <h3 data-i18n="kontakt.info.title">Lass uns reden.</h3>
+      <p data-i18n="kontakt.info.text">Du hast eine Idee oder weißt noch nicht genau, was du willst — kein Problem. Wir besprechen das zusammen und finden was Passendes.</p>
+      <a href="mailto:blacqout.anfragen@gmx.de" class="kontakt-mail">✉ blacqout.anfragen@gmx.de</a>
+    </div>
+    <form action="https://formspree.io/f/mzdqpnpv" method="POST">
       <div>
-        <p><strong style="color:var(--text)">1. Verantwortlicher</strong></p>
-        <p>Kenny Finn Kocjan, Resi Weglein Gasse 9, 89077 Ulm<br>E-Mail: blacqout.anfragen@gmx.de</p>
+        <label for="name" data-i18n="form.name">Name</label>
+        <input type="text" id="name" name="name" data-i18n-placeholder="form.name.ph" placeholder="Dein Name" required />
       </div>
       <div>
-        <p><strong style="color:var(--text)">2. Erhobene Daten</strong></p>
-        <p>Beim Ausfüllen des Kontaktformulars werden folgende Daten erhoben: Name, E-Mail-Adresse, gewähltes Paket und Nachricht. Diese Daten werden ausschließlich zur Bearbeitung deiner Anfrage verwendet.</p>
+        <label for="email" data-i18n="form.email">E-Mail</label>
+        <input type="email" id="email" name="email" data-i18n-placeholder="form.email.ph" placeholder="deine@email.de" required />
       </div>
       <div>
-        <p><strong style="color:var(--text)">3. Weitergabe an Dritte</strong></p>
-        <p>Zur Verarbeitung des Kontaktformulars wird der Dienst <strong style="color:var(--text)">Formspree</strong> (formspree.io) eingesetzt. Deine Daten werden dabei an Formspree übermittelt und gemäß deren Datenschutzrichtlinie verarbeitet. Eine darüber hinausgehende Weitergabe an Dritte findet nicht statt.</p>
+        <label for="paket" data-i18n="form.paket">Paket</label>
+        <select id="paket" name="paket">
+          <option value="" data-i18n="form.paket.select">Paket auswählen</option>
+          <option value="starter">Starter — 599 €</option>
+          <option value="unternehmen" data-i18n="form.opt.unternehmen">Unternehmen — Auf Anfrage</option>
+          <option value="individuell" data-i18n="form.opt.individuell">Individuell — Nach Absprache</option>
+          <option value="unsicher" data-i18n="form.opt.unsicher">Noch unsicher</option>
+        </select>
       </div>
       <div>
-        <p><strong style="color:var(--text)">4. Speicherdauer</strong></p>
-        <p>Deine Daten werden nur so lange gespeichert, wie es zur Bearbeitung deiner Anfrage notwendig ist.</p>
+        <label for="nachricht" data-i18n="form.nachricht">Nachricht</label>
+        <textarea id="nachricht" name="nachricht" data-i18n-placeholder="form.nachricht.ph" placeholder="Beschreib kurz, was du dir vorstellst…" required></textarea>
       </div>
-      <div>
-        <p><strong style="color:var(--text)">5. Deine Rechte</strong></p>
-        <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten. Wende dich dafür an: blacqout.anfragen@gmx.de</p>
-      </div>
+      <button type="submit" class="submit-btn" data-i18n="form.submit">Anfrage senden →</button>
+    </form>
+  </div>
+</section>
+
+<div class="legal-section">
+  <div class="legal-inner">
+    <div id="impressum">
+      <h2 data-i18n="legal.impressum.title">Impressum</h2>
+      <p><strong data-i18n="legal.impressum.sub">Angaben gemäß § 5 TMG</strong></p>
+      <p>Kenny Finn Kocjan<br/>Resi Weglein Gasse 9<br/>89077 Ulm<br/>Deutschland</p>
+      <p><strong data-i18n="legal.impressum.kontakt">Kontakt</strong><br/>E-Mail: blacqout.anfragen@gmx.de</p>
+      <p><strong data-i18n="legal.impressum.steuer">Steuernummer</strong><br/><span data-i18n="legal.impressum.steuertext">Wird nach Gewerbeanmeldung ergänzt.</span></p>
     </div>
-  </section>
+    <div id="datenschutz">
+      <h2 data-i18n="legal.dsgvo.title">Datenschutzerklärung</h2>
+      <p><strong data-i18n="legal.dsgvo.1title">1. Verantwortlicher</strong><br/>Kenny Finn Kocjan, Resi Weglein Gasse 9, 89077 Ulm<br/>E-Mail: blacqout.anfragen@gmx.de</p>
+      <p><strong data-i18n="legal.dsgvo.2title">2. Erhobene Daten</strong><br/><span data-i18n="legal.dsgvo.2text">Name, E-Mail, Paket und Nachricht — ausschließlich zur Bearbeitung deiner Anfrage.</span></p>
+      <p><strong data-i18n="legal.dsgvo.3title">3. Weitergabe an Dritte</strong><br/><span data-i18n="legal.dsgvo.3text">Kontaktformular läuft über Formspree (formspree.io). Keine weitere Weitergabe.</span></p>
+      <p><strong data-i18n="legal.dsgvo.4title">4. Speicherdauer</strong><br/><span data-i18n="legal.dsgvo.4text">Nur so lange wie zur Bearbeitung notwendig.</span></p>
+      <p><strong data-i18n="legal.dsgvo.5title">5. Deine Rechte</strong><br/><span data-i18n="legal.dsgvo.5text">Auskunft, Berichtigung, Löschung, Einschränkung — Kontakt: blacqout.anfragen@gmx.de</span></p>
+    </div>
+  </div>
+</div>
 
-  <!-- FOOTER -->
-  <footer>
-    <span data-i18n="footer_copy">© 2026 Blacqout. Alle Rechte vorbehalten.</span>
-    <nav>
-      <ul>
-        <li><a href="#impressum" style="color:var(--muted);text-decoration:none;font-size:0.8rem;">Impressum</a></li>
-        <li><a href="#datenschutz" style="color:var(--muted);text-decoration:none;font-size:0.8rem;" data-i18n="footer_privacy">Datenschutz</a></li>
-      </ul>
-    </nav>
-  </footer>
+<footer>
+  <div style="width:100%;border-bottom:1px solid var(--border);padding-bottom:1.5rem;margin-bottom:1.5rem;">
+    <span style="font-size:2rem;font-weight:800;letter-spacing:0.1em;color:#ffffff;">BLACQOUT</span>
+  </div>
+  <div style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+    <span data-i18n="footer.copy">© 2026 Blacqout. Alle Rechte vorbehalten.</span>
+    <div class="footer-nav">
+      <a href="#impressum" data-i18n="footer.impressum">Impressum</a>
+      <a href="#datenschutz" data-i18n="footer.datenschutz">Datenschutz</a>
+    </div>
+  </div>
+</footer>
 
-  <script>
-  const translations = {
-    de: {
-      nav_packages: 'Pakete', nav_process: 'Ablauf', nav_about: 'Über uns', nav_contact: 'Anfragen',
-      badge: 'Antwort innerhalb 24h',
-      hero_h1: 'Deine Website.<br><span>Professionell gemacht.</span><br>Immer online.',
-      hero_p: 'Wir bauen deine Website — klar, schnell und ohne versteckte Kosten. Du kümmerst dich um dein Geschäft, wir um deine Website.',
-      hero_btn1: 'Pakete ansehen →', hero_btn2: 'Kostenlos anfragen',
-      pricing_title: 'Klare Preise. Kein Kleingedrucktes.',
-      pricing_sub: 'Du zahlst einmal für die Erstellung und dann monatlich fürs Hosting. Beides ist in jedem Paket dabei.',
-      pricing_note: '⚠ 3D-Animationen werden nicht angeboten.',
-      starter_note: 'einmalig (Erstellung)',
-      starter_desc: 'Ideal für Selbstständige und kleine Unternehmen, die online einen guten ersten Eindruck machen wollen.',
-      starter_f1: '1 Seite', starter_f2: 'Mobil & Laptop optimiert', starter_f3: 'Kontaktformular',
-      starter_hosting: '+ 50 €/Monat Hosting',
-      popular: 'Beliebt', business_name: 'Unternehmen', business_price: 'Auf Anfrage',
-      business_note: 'individuell kalkuliert',
-      business_desc: 'Du brauchst mehr als eine Seite? Kein Problem — mehrere Unterseiten, mehr Inhalt, mehr Wirkung.',
-      business_f1: 'Mehrere Seiten', business_f2: 'Individuelles Design', business_f3: 'Mobil & Laptop optimiert',
-      business_f4: 'Kontaktformular & mehr', business_f5: 'Persönliche Beratung',
-      business_hosting: '+ 50 €/Monat Hosting · +10 € pro Unterseite',
-      custom_name: 'Individuell', custom_price: 'Nach Absprache', custom_note: '100 % maßgeschneidert',
-      custom_desc: 'Du hast besondere Wünsche oder ein größeres Projekt? Wir setzen genau das um, was du brauchst.',
-      custom_f1: 'Unbegrenzte Seiten', custom_f2: 'Vollständig angepasstes Design',
-      custom_f3: 'Sonderfunktionen möglich', custom_f4: 'Persönlicher Ansprechpartner', custom_f5: 'Prioritäts-Support',
-      custom_hosting: '+ Hosting nach Projektumfang',
-      btn_inquire: 'Jetzt anfragen',
-      process_title: 'So läuft es ab.',
-      process_sub: 'Von deiner ersten Nachricht bis zur fertigen Website — kein Chaos, keine Überraschungen.',
-      step1_title: 'Du fragst an', step1_p: 'Schreib uns kurz über das Formular oder per E-Mail — sag uns einfach, was du dir vorstellst.',
-      step2_title: 'Wir besprechen alles', step2_p: 'Wir melden uns persönlich, besprechen was du willst und sagen dir direkt, ob und wie wir das machen können.',
-      step2_note: 'Kein passendes Paket? Wir sagen es dir ehrlich.',
-      step3_title: 'Vorschau', step3_p: 'Wir bauen deine Website und schicken dir eine Vorschau. Du sagst ob alles passt — erst dann geht sie live.',
-      step3_note: 'Erst wenn du zufrieden bist, geht es weiter.',
-      step4_title: 'Zahlung in zwei Schritten', step4_p: 'Wenn du uns den Auftrag gibst, zahlst du 30 % als Anzahlung. Die restlichen 70 % zahlst du erst, wenn die Website fertig und abgenommen ist.',
-      step4_note: 'Banküberweisung. Keine weiteren Zahlungsmittel.',
-      about_title: 'Wir bauen Websites,<br>die funktionieren.',
-      about_p1: 'baut Websites — fair, transparent und ohne versteckte Kosten.',
-      about_p2: 'Eine gute Website sollte kein Luxus sein. Deshalb haben wir feste Pakete — du weißt von Anfang an, was du zahlst.',
-      about_p3: 'Du hast von Anfang bis Ende eine direkte Ansprechperson. Kein Callcenter, kein Hin-und-Her — einfach direkt und schnell.',
-      val1_title: 'Transparenz', val1_p: 'Feste Preise, kein Kleingedrucktes. Du weißt immer, wofür du zahlst.',
-      val2_title: 'Qualität', val2_p: 'Jede Website wird einzeln gestaltet — kein Baukastensystem, keine 0815-Vorlagen.',
-      val3_title: 'Verlässlichkeit', val3_p: 'Das Hosting ist dabei. Deine Website läuft — Punkt.',
-      val4_title: 'Einfachheit', val4_p: 'Du kümmerst dich um dein Business. Wir kümmern uns um deinen Webauftritt.',
-      contact_title: 'Projekt starten.', contact_sub: 'Schreib uns — wir melden uns innerhalb von 24 Stunden bei dir.',
-      contact_h3: 'Lass uns reden.',
-      contact_p: 'Du hast eine Idee oder weißt noch nicht genau, was du willst — kein Problem. Wir besprechen das zusammen und finden was Passendes.',
-      form_name: 'Name', form_name_ph: 'Dein Name', form_email_ph: 'deine@email.de',
-      form_package: 'Paket', form_package_ph: 'Paket auswählen',
-      opt_business: 'Unternehmen — Auf Anfrage', opt_custom: 'Individuell — Nach Absprache', opt_unsure: 'Noch unsicher',
-      form_message: 'Nachricht', form_message_ph: 'Erzähl uns von deinem Projekt…',
-      form_submit: 'Anfrage senden →', form_or: 'Oder direkt:',
-      legal_label: 'Rechtliches', footer_copy: '© 2026 Blacqout. Alle Rechte vorbehalten.', footer_privacy: 'Datenschutz',
-    },
-    en: {
-      nav_packages: 'Packages', nav_process: 'Process', nav_about: 'About', nav_contact: 'Contact',
-      badge: 'Reply within 24h',
-      hero_h1: 'Your Website.<br><span>Professionally built.</span><br>Always online.',
-      hero_p: 'We build your website — clear, fast, and with no hidden costs. You focus on your business, we handle your online presence.',
-      hero_btn1: 'View packages →', hero_btn2: 'Get a free quote',
-      pricing_title: 'Clear pricing. No hidden fees.',
-      pricing_sub: 'You pay once for the build, then monthly for hosting. Both are included in every package.',
-      pricing_note: '⚠ 3D animations are not offered.',
-      starter_note: 'one-time (build)',
-      starter_desc: 'Perfect for freelancers and small businesses who want to make a great first impression online.',
-      starter_f1: '1 page', starter_f2: 'Mobile & desktop optimized', starter_f3: 'Contact form',
-      starter_hosting: '+ €50/month hosting',
-      popular: 'Popular', business_name: 'Business', business_price: 'On request',
-      business_note: 'individually calculated',
-      business_desc: 'Need more than one page? No problem — multiple subpages, more content, more impact.',
-      business_f1: 'Multiple pages', business_f2: 'Custom design', business_f3: 'Mobile & desktop optimized',
-      business_f4: 'Contact form & more', business_f5: 'Personal consultation',
-      business_hosting: '+ €50/month hosting · +€10 per subpage',
-      custom_name: 'Custom', custom_price: 'By arrangement', custom_note: '100% tailor-made',
-      custom_desc: 'Got special requirements or a bigger project? We build exactly what you need.',
-      custom_f1: 'Unlimited pages', custom_f2: 'Fully custom design',
-      custom_f3: 'Special features possible', custom_f4: 'Dedicated contact person', custom_f5: 'Priority support',
-      custom_hosting: '+ Hosting based on project scope',
-      btn_inquire: 'Get in touch',
-      process_title: 'How it works.',
-      process_sub: 'From your first message to the finished website — no chaos, no surprises.',
-      step1_title: 'You reach out', step1_p: 'Send us a quick message via the form or email — just tell us what you have in mind.',
-      step2_title: 'We talk it through', step2_p: 'We get back to you personally, discuss what you want, and tell you directly if and how we can make it happen.',
-      step2_note: 'No suitable package? We\'ll tell you honestly.',
-      step3_title: 'Preview', step3_p: 'We build your website and send you a preview. You say if everything looks right — only then does it go live.',
-      step3_note: 'We only move forward when you\'re happy.',
-      step4_title: 'Payment in two steps', step4_p: 'When you place the order, you pay 30% upfront. The remaining 70% is due only after the finished website is approved by you.',
-      step4_note: 'Bank transfer only. No other payment methods.',
-      about_title: 'We build websites<br>that work.',
-      about_p1: 'builds websites — fair, transparent, and with no hidden costs.',
-      about_p2: 'A good website shouldn\'t be a luxury. That\'s why we offer fixed packages — you know what you\'re paying from day one.',
-      about_p3: 'You have one direct contact from start to finish. No call centres, no back-and-forth — just straightforward and fast.',
-      val1_title: 'Transparency', val1_p: 'Fixed prices, no fine print. You always know what you\'re paying for.',
-      val2_title: 'Quality', val2_p: 'Every website is designed individually — no page builders, no generic templates.',
-      val3_title: 'Reliability', val3_p: 'Hosting is included. Your website stays online — period.',
-      val4_title: 'Simplicity', val4_p: 'You focus on your business. We take care of your web presence.',
-      contact_title: 'Start a project.', contact_sub: 'Write to us — we\'ll get back to you within 24 hours.',
-      contact_h3: 'Let\'s talk.',
-      contact_p: 'Got an idea or not sure what you need yet — no problem. We\'ll figure it out together.',
-      form_name: 'Name', form_name_ph: 'Your name', form_email_ph: 'your@email.com',
-      form_package: 'Package', form_package_ph: 'Select a package',
-      opt_business: 'Business — On request', opt_custom: 'Custom — By arrangement', opt_unsure: 'Not sure yet',
-      form_message: 'Message', form_message_ph: 'Tell us about your project…',
-      form_submit: 'Send request →', form_or: 'Or directly:',
-      legal_label: 'Legal', footer_copy: '© 2026 Blacqout. All rights reserved.', footer_privacy: 'Privacy Policy',
-    }
-  };
-
-  function setLang(lang) {
-    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    const t = translations[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.innerHTML = t[key];
-    });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      if (t[key] !== undefined) el.placeholder = t[key];
-    });
+<script>
+const translations = {
+  de: {
+    "nav.pakete": "Pakete",
+    "nav.ablauf": "Ablauf",
+    "nav.ueber": "Über uns",
+    "nav.anfragen": "Anfragen",
+    "hero.badge": "Antwort innerhalb 24h",
+    "hero.h1a": "Deine",
+    "hero.h1b": "Website.",
+    "hero.h1c": "Professionell gemacht.",
+    "hero.h1d": "Immer online.",
+    "hero.p": "Wir bauen deine Website — klar, schnell und ohne versteckte Kosten. Du kümmerst dich um dein Geschäft, wir um deine Website.",
+    "hero.btn1": "Pakete ansehen →",
+    "hero.btn2": "Kostenlos anfragen",
+    "pakete.label": "Pakete",
+    "pakete.h2a": "Klare",
+    "pakete.h2b": "Preise. Kein Kleingedrucktes.",
+    "pakete.sub": "Du zahlst einmal für die Erstellung und dann monatlich fürs Hosting. Beides ist in jedem Paket dabei.",
+    "pakete.warning": "⚠ 3D-Animationen werden nicht angeboten.",
+    "starter.name": "Starter",
+    "starter.einmalig": "einmalig",
+    "starter.desc": "Ideal für Selbstständige und kleine Unternehmen, die online einen guten ersten Eindruck machen wollen.",
+    "starter.f1": "1 Seite",
+    "starter.f2": "Mobil & Laptop optimiert",
+    "starter.f3": "Kontaktformular",
+    "starter.hosting": "+ 50 €/Monat Hosting",
+    "badge.beliebt": "Beliebt",
+    "unternehmen.name": "Unternehmen",
+    "unternehmen.price": "Auf Anfrage",
+    "unternehmen.pricesub": "individuell kalkuliert",
+    "unternehmen.desc": "Du brauchst mehr als eine Seite? Kein Problem — mehrere Unterseiten, mehr Inhalt, mehr Wirkung.",
+    "unternehmen.f1": "Mehrere Seiten",
+    "unternehmen.f2": "Individuelles Design",
+    "unternehmen.f3": "Mobil & Laptop optimiert",
+    "unternehmen.f4": "Kontaktformular & mehr",
+    "unternehmen.f5": "Persönliche Beratung",
+    "unternehmen.hosting": "+ 50 €/Monat Hosting · +10 € pro Unterseite",
+    "individuell.name": "Individuell",
+    "individuell.price": "Nach Absprache",
+    "individuell.pricesub": "100 % maßgeschneidert",
+    "individuell.desc": "Du hast besondere Wünsche oder ein größeres Projekt? Wir setzen genau das um, was du brauchst.",
+    "individuell.f1": "Unbegrenzte Seiten",
+    "individuell.f2": "Vollständig angepasstes Design",
+    "individuell.f3": "Sonderfunktionen möglich",
+    "individuell.f4": "Persönlicher Ansprechpartner",
+    "individuell.f5": "Prioritäts-Support",
+    "individuell.hosting": "+ Hosting nach Projektumfang",
+    "cta.anfragen": "Jetzt anfragen",
+    "ablauf.label": "Ablauf",
+    "ablauf.h2a": "So",
+    "ablauf.h2b": "läuft es ab.",
+    "ablauf.sub": "Von deiner ersten Nachricht bis zur fertigen Website — kein Chaos, keine Überraschungen.",
+    "ablauf.1.title": "Du fragst an",
+    "ablauf.1.text": "Schreib uns kurz über das Formular oder per E-Mail — sag uns einfach, was du dir vorstellst.",
+    "ablauf.2.title": "Wir besprechen alles",
+    "ablauf.2.text": "Wir melden uns persönlich, besprechen was du willst und sagen dir direkt, ob und wie wir das machen können.",
+    "ablauf.2.note": "Kein passendes Paket? Wir sagen es dir ehrlich.",
+    "ablauf.3.title": "Vorschau",
+    "ablauf.3.text": "Wir bauen deine Website und schicken dir eine Vorschau. Du sagst ob alles passt — erst dann geht sie live.",
+    "ablauf.3.note": "Erst wenn du zufrieden bist, geht es weiter.",
+    "ablauf.4.title": "Zahlung in zwei Schritten",
+    "ablauf.4.text": "Wenn du uns den Auftrag gibst, zahlst du 30 % als Anzahlung. Die restlichen 70 % zahlst du erst, wenn die Website fertig und abgenommen ist.",
+    "ablauf.4.note": "Banküberweisung. Keine weiteren Zahlungsmittel.",
+    "ueber.label": "Über uns",
+    "ueber.h2a": "Wir",
+    "ueber.h2b": "bauen Websites,<br/>die funktionieren.",
+    "ueber.text": "Wir haben Blacqout gestartet, weil wir gesehen haben wie viele Leute mit überteuerten Agenturen, versteckten Kosten und endlosen Abstimmungsschleifen kämpfen — und am Ende eine Website bekommen, die sie selbst nicht verstehen.<br/><br/>Das machen wir anders. Kein Team von 20 Leuten im Hintergrund, kein Callcenter, keine Überraschungen auf der Rechnung. Du redest direkt mit uns — und wir liefern.",
+    "val.1.title": "Transparenz",
+    "val.1.text": "Feste Preise, kein Kleingedrucktes. Du weißt immer, wofür du zahlst.",
+    "val.2.title": "Qualität",
+    "val.2.text": "Jede Website wird einzeln gestaltet — kein Baukastensystem, keine 0815-Vorlagen.",
+    "val.3.title": "Verlässlichkeit",
+    "val.3.text": "Das Hosting ist dabei. Deine Website läuft — Punkt.",
+    "val.4.title": "Einfachheit",
+    "val.4.text": "Du kümmerst dich um dein Business. Wir kümmern uns um deinen Webauftritt.",
+    "kontakt.label": "Kontakt",
+    "kontakt.h2a": "Projekt",
+    "kontakt.h2b": "starten.",
+    "kontakt.sub": "Schreib uns — wir melden uns innerhalb von 24 Stunden bei dir.",
+    "kontakt.info.title": "Lass uns reden.",
+    "kontakt.info.text": "Du hast eine Idee oder weißt noch nicht genau, was du willst — kein Problem. Wir besprechen das zusammen und finden was Passendes.",
+    "form.name": "Name",
+    "form.name.ph": "Dein Name",
+    "form.email": "E-Mail",
+    "form.email.ph": "deine@email.de",
+    "form.paket": "Paket",
+    "form.paket.select": "Paket auswählen",
+    "form.opt.unternehmen": "Unternehmen — Auf Anfrage",
+    "form.opt.individuell": "Individuell — Nach Absprache",
+    "form.opt.unsicher": "Noch unsicher",
+    "form.nachricht": "Nachricht",
+    "form.nachricht.ph": "Beschreib kurz, was du dir vorstellst…",
+    "form.submit": "Anfrage senden →",
+    "footer.copy": "© 2026 Blacqout. Alle Rechte vorbehalten.",
+    "footer.impressum": "Impressum",
+    "footer.datenschutz": "Datenschutz",
+    "legal.impressum.title": "Impressum",
+    "legal.impressum.sub": "Angaben gemäß § 5 TMG",
+    "legal.impressum.kontakt": "Kontakt",
+    "legal.impressum.steuer": "Steuernummer",
+    "legal.impressum.steuertext": "Wird nach Gewerbeanmeldung ergänzt.",
+    "legal.dsgvo.title": "Datenschutzerklärung",
+    "legal.dsgvo.1title": "1. Verantwortlicher",
+    "legal.dsgvo.2title": "2. Erhobene Daten",
+    "legal.dsgvo.2text": "Name, E-Mail, Paket und Nachricht — ausschließlich zur Bearbeitung deiner Anfrage.",
+    "legal.dsgvo.3title": "3. Weitergabe an Dritte",
+    "legal.dsgvo.3text": "Kontaktformular läuft über Formspree (formspree.io). Keine weitere Weitergabe.",
+    "legal.dsgvo.4title": "4. Speicherdauer",
+    "legal.dsgvo.4text": "Nur so lange wie zur Bearbeitung notwendig.",
+    "legal.dsgvo.5title": "5. Deine Rechte",
+    "legal.dsgvo.5text": "Auskunft, Berichtigung, Löschung, Einschränkung — Kontakt: blacqout.anfragen@gmx.de",
+    "hosting.title": "Was zahlst du monatlich fürs Hosting?",
+    "hosting.sub": "Einmalige Erstellungskosten nicht inbegriffen — nur die monatliche Hosting-Gebühr.",
+    "hosting.col.seiten": "Anzahl Seiten",
+    "hosting.col.monat": "Pro Monat",
+    "hosting.col.paket": "Passendes Paket",
+    "hosting.r1.seiten": "1 Seite",
+    "hosting.r1.paket": "Starter",
+    "hosting.r2.seiten": "2 Seiten",
+    "hosting.r2.paket": "Unternehmen",
+    "hosting.r3.seiten": "3 Seiten",
+    "hosting.r3.paket": "Unternehmen",
+    "hosting.r4.seiten": "5 Seiten",
+    "hosting.r4.paket": "Unternehmen",
+    "hosting.r5.seiten": "10 Seiten",
+    "hosting.r5.paket": "Unternehmen",
+    "hosting.r6.seiten": "Individualprojekt",
+    "hosting.r6.price": "ab 80 €",
+    "hosting.r6.extra": "+ 20 € pro Seite",
+    "hosting.r6.paket": "Individuell",
+  },
+  en: {
+    "nav.pakete": "Packages",
+    "nav.ablauf": "Process",
+    "nav.ueber": "About",
+    "nav.anfragen": "Contact",
+    "hero.badge": "Response within 24h",
+    "hero.h1a": "Your",
+    "hero.h1b": "Website.",
+    "hero.h1c": "Professionally built.",
+    "hero.h1d": "Always online.",
+    "hero.p": "We build your website — clean, fast and without hidden costs. You focus on your business, we take care of your website.",
+    "hero.btn1": "View packages →",
+    "hero.btn2": "Get a free quote",
+    "pakete.label": "Packages",
+    "pakete.h2a": "Clear",
+    "pakete.h2b": "Pricing. No fine print.",
+    "pakete.sub": "You pay once for the build and then monthly for hosting. Both are included in every package.",
+    "pakete.warning": "⚠ 3D animations are not offered.",
+    "starter.name": "Starter",
+    "starter.einmalig": "one-time",
+    "starter.desc": "Ideal for freelancers and small businesses who want to make a great first impression online.",
+    "starter.f1": "1 page",
+    "starter.f2": "Mobile & desktop optimized",
+    "starter.f3": "Contact form",
+    "starter.hosting": "+ €50/month hosting",
+    "badge.beliebt": "Popular",
+    "unternehmen.name": "Business",
+    "unternehmen.price": "On request",
+    "unternehmen.pricesub": "individually calculated",
+    "unternehmen.desc": "Need more than one page? No problem — multiple subpages, more content, more impact.",
+    "unternehmen.f1": "Multiple pages",
+    "unternehmen.f2": "Custom design",
+    "unternehmen.f3": "Mobile & desktop optimized",
+    "unternehmen.f4": "Contact form & more",
+    "unternehmen.f5": "Personal consultation",
+    "unternehmen.hosting": "+ €50/month hosting · +€10 per subpage",
+    "individuell.name": "Custom",
+    "individuell.price": "By agreement",
+    "individuell.pricesub": "100% tailor-made",
+    "individuell.desc": "Have special requirements or a larger project? We deliver exactly what you need.",
+    "individuell.f1": "Unlimited pages",
+    "individuell.f2": "Fully customized design",
+    "individuell.f3": "Special features possible",
+    "individuell.f4": "Dedicated contact person",
+    "individuell.f5": "Priority support",
+    "individuell.hosting": "+ Hosting by project scope",
+    "cta.anfragen": "Get in touch",
+    "ablauf.label": "Process",
+    "ablauf.h2a": "How",
+    "ablauf.h2b": "it works.",
+    "ablauf.sub": "From your first message to the finished website — no chaos, no surprises.",
+    "ablauf.1.title": "You reach out",
+    "ablauf.1.text": "Send us a quick message via the form or email — just tell us what you have in mind.",
+    "ablauf.2.title": "We talk it through",
+    "ablauf.2.text": "We get back to you personally, discuss what you want, and tell you straight whether and how we can make it happen.",
+    "ablauf.2.note": "No matching package? We'll tell you honestly.",
+    "ablauf.3.title": "Preview",
+    "ablauf.3.text": "We build your website and send you a preview. You tell us if everything is right — only then does it go live.",
+    "ablauf.3.note": "We only move forward when you're happy.",
+    "ablauf.4.title": "Payment in two steps",
+    "ablauf.4.text": "Once you give us the go-ahead, you pay 30% upfront. The remaining 70% is due only after the website is finished and approved.",
+    "ablauf.4.note": "Bank transfer only. No other payment methods.",
+    "ueber.label": "About",
+    "ueber.h2a": "We",
+    "ueber.h2b": "build websites<br/>that work.",
+    "ueber.text": "We started Blacqout because we kept seeing people struggle with overpriced agencies, hidden fees, and endless rounds of feedback — only to end up with a website they don't even understand themselves.<br/><br/>We do it differently. No team of 20 people in the background, no call center, no surprises on the invoice. You talk directly to us — and we deliver.",
+    "val.1.title": "Transparency",
+    "val.1.text": "Fixed prices, no fine print. You always know what you're paying for.",
+    "val.2.title": "Quality",
+    "val.2.text": "Every website is individually designed — no page builders, no cookie-cutter templates.",
+    "val.3.title": "Reliability",
+    "val.3.text": "Hosting is included. Your website stays online — period.",
+    "val.4.title": "Simplicity",
+    "val.4.text": "You focus on your business. We take care of your web presence.",
+    "kontakt.label": "Contact",
+    "kontakt.h2a": "Start",
+    "kontakt.h2b": "your project.",
+    "kontakt.sub": "Write to us — we'll get back to you within 24 hours.",
+    "kontakt.info.title": "Let's talk.",
+    "kontakt.info.text": "You have an idea or aren't sure yet what you want — no problem. We'll figure it out together and find the right fit.",
+    "form.name": "Name",
+    "form.name.ph": "Your name",
+    "form.email": "Email",
+    "form.email.ph": "your@email.com",
+    "form.paket": "Package",
+    "form.paket.select": "Select a package",
+    "form.opt.unternehmen": "Business — On request",
+    "form.opt.individuell": "Custom — By agreement",
+    "form.opt.unsicher": "Not sure yet",
+    "form.nachricht": "Message",
+    "form.nachricht.ph": "Briefly describe what you have in mind…",
+    "form.submit": "Send request →",
+    "footer.copy": "© 2026 Blacqout. All rights reserved.",
+    "footer.impressum": "Legal Notice",
+    "footer.datenschutz": "Privacy Policy",
+    "legal.impressum.title": "Legal Notice",
+    "legal.impressum.sub": "Information according to § 5 TMG",
+    "legal.impressum.kontakt": "Contact",
+    "legal.impressum.steuer": "Tax number",
+    "legal.impressum.steuertext": "Will be added after business registration.",
+    "legal.dsgvo.title": "Privacy Policy",
+    "legal.dsgvo.1title": "1. Controller",
+    "legal.dsgvo.2title": "2. Data collected",
+    "legal.dsgvo.2text": "Name, email, package and message — solely for processing your request.",
+    "legal.dsgvo.3title": "3. Third parties",
+    "legal.dsgvo.3text": "Contact form is processed via Formspree (formspree.io). No further sharing.",
+    "legal.dsgvo.4title": "4. Retention",
+    "legal.dsgvo.4text": "Only as long as necessary to process your request.",
+    "legal.dsgvo.5title": "5. Your rights",
+    "legal.dsgvo.5text": "Access, correction, deletion, restriction — contact: blacqout.anfragen@gmx.de",
+    "hosting.title": "What do you pay monthly for hosting?",
+    "hosting.sub": "One-time build cost not included — this is the monthly hosting fee only.",
+    "hosting.col.seiten": "Number of pages",
+    "hosting.col.monat": "Per month",
+    "hosting.col.paket": "Matching package",
+    "hosting.r1.seiten": "1 page",
+    "hosting.r1.paket": "Starter",
+    "hosting.r2.seiten": "2 pages",
+    "hosting.r2.paket": "Business",
+    "hosting.r3.seiten": "3 pages",
+    "hosting.r3.paket": "Business",
+    "hosting.r4.seiten": "5 pages",
+    "hosting.r4.paket": "Business",
+    "hosting.r5.seiten": "10 pages",
+    "hosting.r5.paket": "Business",
+    "hosting.r6.seiten": "Custom project",
+    "hosting.r6.price": "from €80",
+    "hosting.r6.extra": "+ €20 per page",
+    "hosting.r6.paket": "Custom",
   }
-  </script>
+};
+
+let currentLang = 'de';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+
+  // Update text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // Update lang switch UI
+  document.querySelectorAll('.lang-switch span').forEach(s => {
+    s.classList.remove('active');
+    if (s.textContent === lang.toUpperCase()) s.classList.add('active');
+  });
+
+  // Update html lang
+  document.documentElement.lang = lang;
+}
+</script>
+
+
+
+
+
+<script>
+(function() {
+  var intro = document.getElementById('intro');
+  var video = document.getElementById('intro-video');
+
+  // Fade out when video ends
+  video.addEventListener('ended', function() {
+    intro.style.opacity = '0';
+    setTimeout(function() { intro.remove(); }, 800);
+  });
+
+  // Fallback: remove after 6 seconds in case video doesn't play
+  setTimeout(function() {
+    intro.style.opacity = '0';
+    setTimeout(function() { if (intro.parentNode) intro.remove(); }, 800);
+  }, 3000);
+})();
+</script>
 
 </body>
 </html>
